@@ -14,7 +14,7 @@ const filesDir = path.resolve('files')
 const file = path.resolve(filesDir, 'manifest.xls')
 const fileBody = fs.readFileSync(file, 'utf-8')
 
-manifestParser( {fileName: file})
+// manifestParser( {fileName: file})
 
 type Obj = {
 	[key: string | number]: any
