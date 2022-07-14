@@ -12,7 +12,7 @@ import xls from 'xlsx'
 
 const filesDir = path.resolve('files')
 const file = path.resolve(filesDir, 'manifest.xls')
-const fileBody = fs.readFileSync(file, 'utf-8')
+// const fileBody = fs.readFileSync(file, 'utf-8')
 
 type Obj = {
 	[key: string | number]: any
