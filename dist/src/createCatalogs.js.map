@@ -1,0 +1,1 @@
+{"version":3,"file":"createCatalogs.js","sourceRoot":"","sources":["../../src/createCatalogs.ts"],"names":[],"mappings":";;;;;;AAAA,0CAAmB;AAGnB,SAAgB,cAAc,CAAC,GAAW;IACzC,IAAI;QAAE,YAAE,CAAC,WAAW,CAAC,GAAG,CAAC,CAAA;KAAE;IAC3B,OAAM,CAAC,EAAE;QACR,YAAE,CAAC,SAAS,CAAC,GAAG,EAAE,EAAE,SAAS,EAAE,IAAI,EAAE,CAAC,CAAA;KACtC;AACF,CAAC;AALD,wCAKC;AAED,iDAAiD"}

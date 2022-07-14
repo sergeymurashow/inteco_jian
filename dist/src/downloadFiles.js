@@ -44,6 +44,7 @@ var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
 var axios_1 = __importDefault(require("axios"));
 var parseExcel_1 = require("../src/parseExcel");
+var createCatalogs_1 = require("./createCatalogs");
 function downloadFiles(files) {
     return __awaiter(this, void 0, void 0, function () {
         var dir, _loop_1, _i, files_1, file;
@@ -52,6 +53,7 @@ function downloadFiles(files) {
                 case 0:
                     console.log('files', files);
                     dir = path_1.default.resolve(__dirname, '../tmp');
+                    (0, createCatalogs_1.createCatalogs)(dir);
                     _loop_1 = function (file) {
                         var url, filePath, writer;
                         return __generator(this, function (_b) {

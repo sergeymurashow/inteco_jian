@@ -16,7 +16,6 @@ var xlsx_1 = __importDefault(require("xlsx"));
 var filesDir = path_1.default.resolve('files');
 var file = path_1.default.resolve(filesDir, 'manifest.xls');
 var fileBody = fs_1.default.readFileSync(file, 'utf-8');
-manifestParser({ fileName: file });
 function manifestParser(params) {
     var _a;
     var obj = {

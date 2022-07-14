@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import Axios from 'axios'
 import {manifestParser} from '../src/parseExcel'
+import {createCatalogs} from './createCatalogs'
 
 type File = {
 	id: number
@@ -15,6 +16,7 @@ type File = {
 export async function downloadFiles( files: Array<File> ) {
 	console.log( 'files', files )
 	let dir = path.resolve( __dirname, '../tmp' )
+	createCatalogs( dir )
 	for ( let file of files ) {
 		let url = file.url;
 		let filePath = `${ dir }/${
