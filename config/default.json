@@ -1,0 +1,11 @@
+{
+    "app": {
+        "port": 3000
+    },
+    "connection": {
+        "username": "info@inteco-dv.ru",
+        "password": "vbhevbh",
+        "protocol": "http",
+        "domen": "lk.intecolines.ru:8055"
+    }
+}

@@ -13,7 +13,7 @@ type File = {
 	metadata: string | null
 }
 
-export async function downloadFiles( files: Array<File> ) {
+module.exports = async function downloadFiles( files: Array<File> ) {
 	console.log( 'files', files )
 	let dir = path.resolve( __dirname, '../tmp' )
 	createCatalogs( dir )
@@ -27,6 +27,7 @@ export async function downloadFiles( files: Array<File> ) {
 		await Axios( { url, method: 'GET', responseType: 'stream' } ).then( async function ( response ) {
 			let t
 			response.data.pipe( writer );
+			// writer.on( 'finish', () => ( manifestParser( { fileName: filePath } ) ) );
 			writer.on( 'finish', () => ( manifestParser( { fileName: filePath } ) ) );
 		} );
 	};

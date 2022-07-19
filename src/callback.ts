@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import Axios from 'axios'
 
-type DocTypesList = 'manifest' | 'declaration'
+type DocTypesList = 'manifest' | 'declaration' | 'contracts'
 
 const configPath = {path:'config.env'}
 dotenv.config(configPath)
