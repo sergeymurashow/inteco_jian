@@ -8,11 +8,9 @@ dotenv.config(configPath)
 
 const url = `${process.env.URL}${process.env.CALLBACKURL}`
 
-export async function sendParsed ( docType: DocTypesList, data ) {
+export async function sendParsed ( data ) {
 	
-	await Axios( { url, method: 'POST', data, headers: {
-		docType
-	} } ).then((resp) => {
+	await Axios( { url, method: 'POST', data } ).then((resp) => {
 		console.log( resp )
 	}).catch( err => {
 		console.error( err )

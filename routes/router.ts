@@ -11,10 +11,9 @@ router.route('/parse')
 	})
 	.post(jsonParser, (req, res) => {
 		processRunner({
-			processName: 'downloadFiles',
+			processName: 'documentProcess',
 			body: req.body
 		})
-		// downloadFiles( req.body )
 		res.send( {status: 200} )
 	})
 

@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import _ from 'lodash'
-import { sendParsed } from './callback'
+import { sendParsed } from '../src/callback'
 
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
@@ -14,15 +14,15 @@ import { mergeSheets } from './utils/merge'
 */
 
 const filesDir = path.resolve('files')
-const file = path.resolve(filesDir, 'INTECO Qingdao 6.20.xlsx')
+const file = path.resolve(filesDir, 'emailTemplate.xlsx')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
 
 
 function getAddr(key: string) {
 	return {
-		col: key.match(/[A-Z]*/)[0],
-		row: key.match(/\d+/)[0]
+		col: key.match(/[A-Z]*(?=_\()/)[0],
+		row: key.match(/(?<=\))_\d+/)[0]
 	}
 }
 
@@ -61,7 +61,9 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 	}
 }
 
-function parseSheet(sheet) {
+
+export function manifestParser(params: Params) {
+
 	let obj: Obj = {
 		data: {},
 		set(data: Obj) {
@@ -75,6 +77,7 @@ function parseSheet(sheet) {
 		}
 	}
 
+	let sheet = xls.readFile(params.fileName).Sheets
 	for (let i in sheet) {
 		if (!i.includes('!')) {
 			obj.set({ [i]: sheet[i] })
@@ -82,21 +85,13 @@ function parseSheet(sheet) {
 	}
 
 	let arrayData: Array<Obj> = obj.get()
-	return arrayData
-}
-
-export function manifestParser(params: Params) {
-
-	let sheet = xls.readFile(params.fileName).Sheets
-	let parsedSheet = _.toArray(sheet).map(m => parseSheet(m))
-	let bigSheet = [].concat(...parsedSheet)
-
-
-	let voyage: string = bigSheet[2].C.match(/INT\d+/)[0]
 
 	let collect = {}
+
+	let voyage: string = arrayData[2].C.match(/INT\d+/)
+
 	let tmp: string
-	bigSheet.forEach(fo => {
+	arrayData.forEach(fo => {
 		let chk = fo.A && fo.A.match(/INJIAN/)
 		if (chk) {
 			tmp = fo.A
@@ -116,31 +111,47 @@ export function manifestParser(params: Params) {
 
 function clearString(data: string) {
 	try {
-		if (!data) return
+		if ( !data ) return 
 		return data.replace(/(^\s+|\s+$)/g, '')
-	} catch (err) {
-		console.error(err)
+	} catch( err ) {
+		console.error( err )
 	}
 }
 
 export function contractAndBookingParser(params: Params) {
 
-	let sheet = xls.readFile(params.fileName).Sheets
-	let parsedSheet = _.toArray(sheet).map(m => parseSheet(m))
-	let bigSheet = [].concat(...parsedSheet)
+	let obj: Obj = {
+		data: {},
+		set(data: Obj) {
+			const keys = getAddr(Object.keys(data)[0])
+			const value = Object.values(data)[0]
+			if (!this.data[keys.row]) this.data[keys.row] = {}
+			this.data[keys.row][keys.col] = value.v
+		},
+		get(): Array<Obj> {
+			return _.toArray(this.data)
+		}
+	}
 
+	const sheet = mergeSheets(readFile(params.fileName).Sheets)
+	for (let i in sheet) {
+		if (!i.includes('!')) {
+			obj.set({ [i]: sheet[i] })
+		}
+	}
+
+	let arrayData: Array<Obj> = obj.get()
 	let collect
 	try {
-		collect = bigSheet
-			.filter(f => {
-				return f.C && f.C.match(/INJIAN\d+/)
-			})
-			.map(m => {
-				return { bookingId: clearString(m.C), contract: clearString(m.B) }
-			})
-	} catch (err) {
-		console.error(err)
-	}
+	collect = arrayData
+		.filter(f => {
+			return f.C && f.C.match(/INJIAN\d+/)
+		})
+		.map(m => {
+			return { bookingId: clearString(m.C), contract: clearString(m.B) }
+		})} catch ( err ) {
+			console.error( err )
+		}
 
 	// sendParsed('contracts', collect)
 	console.log(collect)
