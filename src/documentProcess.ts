@@ -9,7 +9,7 @@ import Fs from 'fs'
 
 
 
-module.exports = async function documentProcess(data) {
+async function documentProcess(data) {
 
 	let dir = Path.resolve(__dirname, '../tmp')
 	createCatalogs(dir)
@@ -39,25 +39,17 @@ module.exports = async function documentProcess(data) {
 	let tt
 }
 
+module.exports = documentProcess
 
 
 
 
 // const testData = [
-	// {
-	// 	"id": 10454,
-	// 	"title": "manifest.xls",
-	// 	"size": 142848,
-	// 	"url": "http://89.108.119.30:22035/storage/1/cd3e877f-666c-4ad0-bf8f-a232f5b57c79/manifest.xls",
-	// 	"mimeType": "application/vnd.ms-excel",
-	// 	"metadata": null,
-	// 	"docType": "manifest"
-	//   },
 // 	{
-// 		"id": 10451,
-// 		"title": "INTECO Qingdao 6.20.xlsx",
-// 		"size": 22655,
-// 		"url": "http://89.108.119.30:22035/storage/1/fec9f0a2-c24f-4643-9d3c-a0fae357c153/INTECO%20Qingdao%206.20.xlsx",
+// 		"id": 10478,
+// 		"title": "contract_short.xlsx",
+// 		"size": 9741,
+// 		"url": "http://89.108.119.30:22035/storage/1/ef59f104-795e-4f57-b148-3992d7637585/contract_short.xlsx",
 // 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 // 		"metadata": null,
 // 		"docType": "contract"
