@@ -136,7 +136,7 @@ export function contractAndBookingParser(params: Params) {
 				return f.C && f.C.match(/INJIAN\d+/)
 			})
 			.map(m => {
-				return { bookingId: clearString(m.C), contract: clearString(m.B) }
+				return { bookingId: clearString(m.C), contract: clearString(m.B), voyage: clearString(m.H.match(/INT\d+/)[0]) }
 			})
 	} catch (err) {
 		console.error(err)

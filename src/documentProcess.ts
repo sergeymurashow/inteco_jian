@@ -9,7 +9,7 @@ import Fs from 'fs'
 
 
 
-export async function documentProcess(data) {
+module.exports = async function documentProcess(data) {
 
 	let dir = Path.resolve(__dirname, '../tmp')
 	createCatalogs(dir)
@@ -43,27 +43,27 @@ export async function documentProcess(data) {
 
 
 
-const testData = [
-	{
-		"id": 10454,
-		"title": "manifest.xls",
-		"size": 142848,
-		"url": "http://89.108.119.30:22035/storage/1/cd3e877f-666c-4ad0-bf8f-a232f5b57c79/manifest.xls",
-		"mimeType": "application/vnd.ms-excel",
-		"metadata": null,
-		"docType": "manifest"
-	  },
+// const testData = [
 	// {
-	// 	"id": 10451,
-	// 	"title": "INTECO Qingdao 6.20.xlsx",
-	// 	"size": 22655,
-	// 	"url": "http://89.108.119.30:22035/storage/1/fec9f0a2-c24f-4643-9d3c-a0fae357c153/INTECO%20Qingdao%206.20.xlsx",
-	// 	"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+	// 	"id": 10454,
+	// 	"title": "manifest.xls",
+	// 	"size": 142848,
+	// 	"url": "http://89.108.119.30:22035/storage/1/cd3e877f-666c-4ad0-bf8f-a232f5b57c79/manifest.xls",
+	// 	"mimeType": "application/vnd.ms-excel",
 	// 	"metadata": null,
-	// 	"docType": "contract"
-	// }
-]
+	// 	"docType": "manifest"
+	//   },
+// 	{
+// 		"id": 10451,
+// 		"title": "INTECO Qingdao 6.20.xlsx",
+// 		"size": 22655,
+// 		"url": "http://89.108.119.30:22035/storage/1/fec9f0a2-c24f-4643-9d3c-a0fae357c153/INTECO%20Qingdao%206.20.xlsx",
+// 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+// 		"metadata": null,
+// 		"docType": "contract"
+// 	}
+// ]
 
-	; (async () => {
-		await documentProcess(testData)
-	})()
+// 	; (async () => {
+// 		await documentProcess(testData)
+// 	})()
