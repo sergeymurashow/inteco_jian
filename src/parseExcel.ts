@@ -7,6 +7,7 @@ import xls from 'xlsx'
 import { readFile } from 'xlsx'
 import { Booking, Contract, Obj, Container, Params } from './types'
 import { mergeSheets } from './utils/merge'
+import { transcribeContractNumber } from './utils/transcribeContractNumber'
 
 /*TODO 
 — Create object structure
@@ -29,7 +30,7 @@ function getAddr(key: string) {
 function getContainer(data: Obj): Container {
 	return {
 		mension: data.L,
-		type: data.M,
+		cType: data.M,
 		vol: data.N,
 		number: data.O,
 		seal: data.P,
@@ -136,7 +137,11 @@ export function contractAndBookingParser(params: Params) {
 				return f.C && f.C.match(/INJIAN\d+/)
 			})
 			.map(m => {
-				return { bookingId: clearString(m.C), contract: clearString(m.B), voyageNumber: clearString(m.H.match(/INT\d+/)[0]) }
+				return {
+					bookingId: clearString(m.C),
+					contract: transcribeContractNumber(clearString(m.B)),
+					voyageNumber: clearString(m.H.match(/INT\d+/)[0])
+				}
 			})
 	} catch (err) {
 		console.error(err)

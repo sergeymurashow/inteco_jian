@@ -27,7 +27,7 @@ export type Booking = {
 
 export type Container = {
 	mension: string,
-	type: string,
+	cType: string,
 	vol: string,
 	number: string,
 	seal: string,
