@@ -114,7 +114,8 @@ export function manifestParser(params: Params) {
 	return collect
 }
 
-function clearString(data: string) {
+function clearString(data: string | number ) {
+	if( typeof data === 'number' ) return data
 	try {
 		if (!data) return
 		return data.replace(/(^\s+|\s+$)/g, '')
@@ -136,7 +137,15 @@ export function contractAndBookingParser(params: Params) {
 				return f.C && f.C.match(/INJIAN\d+/)
 			})
 			.map(m => {
-				return { bookingId: clearString(m.C), contract: clearString(m.B), voyageNumber: clearString(m.H.match(/INT\d+/)[0]) }
+				return { 
+					bookingId: clearString(m.C), 
+					contract: clearString(m.B), 
+					voyageNumber: clearString(m.H.match(/INT\d+/)[0]),
+					containersCount: +clearString(m.D),
+					type: clearString(m.E),
+					gWeight: clearString(m.F),
+					shipper: clearString(m.G)
+				}
 			})
 	} catch (err) {
 		console.error(err)
