@@ -43,3 +43,4 @@ export type Contract = {
 	bookingId: string,
 	contract: string
 }
+

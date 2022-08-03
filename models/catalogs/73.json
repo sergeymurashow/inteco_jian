@@ -1,0 +1,1258 @@
+{
+	"id": "73",
+	"sectionId": "14",
+	"icon": "content-11",
+	"name": "BOOKING",
+	"privilegeCode": "create",
+	"fieldPrivilegeCodes": {
+	  "142": "edit"
+	},
+	"fields": [
+	  {
+		"id": "1",
+		"name": " BOOKING INFORMATION",
+		"type": "group",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {
+		  "142": [
+			"2",
+			"$EMPTY"
+		  ]
+		},
+		"config": {}
+	  },
+	  {
+		"id": "5",
+		"name": "BOOKING / BL",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "text",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "138",
+		"name": "STATUS",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "CONFIRMED",
+			  "color": "D0FBBF",
+			  "_cid": "190f62d5-b36d-49f9-5fa8-1e66867dfa64",
+			  "id": "1"
+			},
+			{
+			  "name": "REJECT",
+			  "color": "F9C2C2",
+			  "_cid": "4d35dfe7-3e3a-ca23-146a-f3202d821107",
+			  "id": "2"
+			},
+			{
+			  "name": "DONE",
+			  "color": "DFE0E0",
+			  "_cid": "09edfd0c-5f25-89cd-5897-4bf6491f9418",
+			  "id": "3"
+			}
+		  ],
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "130",
+		"name": "CONTRACT",
+		"type": "object",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "accessOnly": false,
+		  "enableCreate": true,
+		  "enableUnsaved": false,
+		  "enableSelect": true,
+		  "mode": "cards",
+		  "catalogs": [
+			{
+			  "id": "114",
+			  "title": "CONTRACTS",
+			  "icon": "content-11",
+			  "removed": false
+			}
+		  ],
+		  "views": [],
+		  "fields": {
+			"114": [
+			  {
+				"id": "2",
+				"name": "CONTRACT NUMBER",
+				"type": "text",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"visible": {},
+				"config": {
+				  "type": "text",
+				  "defaultEmptyValue": ""
+				}
+			  },
+			  {
+				"id": "3",
+				"name": "CLIENT",
+				"type": "object",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"visible": {},
+				"config": {
+				  "multiselect": false,
+				  "accessOnly": false,
+				  "enableCreate": true,
+				  "enableUnsaved": false,
+				  "enableSelect": true,
+				  "mode": "list",
+				  "catalogs": [
+					{
+					  "id": "111",
+					  "title": "CLIENTS",
+					  "icon": "content-11",
+					  "removed": false
+					}
+				  ],
+				  "views": [],
+				  "fields": {},
+				  "defaultEmptyValue": []
+				}
+			  }
+			]
+		  },
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "91",
+		"name": "VOYAGE",
+		"type": "object",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "accessOnly": false,
+		  "enableCreate": true,
+		  "enableUnsaved": false,
+		  "enableSelect": true,
+		  "mode": "cards",
+		  "catalogs": [
+			{
+			  "id": "79",
+			  "title": "VOYAGES",
+			  "icon": "content-11",
+			  "removed": false
+			}
+		  ],
+		  "views": [],
+		  "fields": {
+			"79": [
+			  {
+				"id": "2",
+				"name": "VOYAGE NUMBER",
+				"type": "text",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"visible": {},
+				"config": {
+				  "type": "text",
+				  "defaultEmptyValue": ""
+				}
+			  },
+			  {
+				"id": "9",
+				"name": "VESSEL",
+				"type": "object",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"visible": {},
+				"config": {
+				  "multiselect": false,
+				  "accessOnly": false,
+				  "enableCreate": true,
+				  "enableUnsaved": false,
+				  "enableSelect": true,
+				  "mode": "cards",
+				  "catalogs": [
+					{
+					  "id": "74",
+					  "title": "VESSELS",
+					  "icon": "content-11",
+					  "removed": false
+					}
+				  ],
+				  "views": [],
+				  "fields": {
+					"74": [
+					  {
+						"id": "3",
+						"name": "TEU",
+						"type": "text",
+						"hint": "",
+						"required": false,
+						"history": true,
+						"filterable": true,
+						"apiOnly": false,
+						"comment": "",
+						"visible": {},
+						"config": {
+						  "type": "text",
+						  "defaultEmptyValue": ""
+						}
+					  },
+					  {
+						"id": "2",
+						"name": "Название - Name",
+						"type": "text",
+						"hint": "",
+						"required": false,
+						"history": true,
+						"filterable": true,
+						"apiOnly": false,
+						"comment": "",
+						"visible": {},
+						"config": {
+						  "type": "text",
+						  "defaultEmptyValue": ""
+						}
+					  }
+					]
+				  },
+				  "defaultEmptyValue": []
+				}
+			  },
+			  {
+				"id": "18",
+				"name": "ETD POL",
+				"type": "date",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"visible": {},
+				"config": {
+				  "time": false
+				}
+			  },
+			  {
+				"id": "21",
+				"name": "ETA POD",
+				"type": "date",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"visible": {},
+				"config": {
+				  "time": false
+				}
+			  }
+			]
+		  },
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "154",
+		"name": "ETD POL TEXT",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": true,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "text",
+		  "mask": "11.11.1111",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "128",
+		"name": "TRANSIT POL",
+		"type": "object",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "accessOnly": true,
+		  "enableCreate": true,
+		  "enableUnsaved": false,
+		  "enableSelect": true,
+		  "mode": "list",
+		  "catalogs": [
+			{
+			  "id": "112",
+			  "title": "PO",
+			  "icon": "content-11",
+			  "removed": false
+			}
+		  ],
+		  "views": [],
+		  "fields": {},
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "152",
+		"name": "CRD INPUT",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "text",
+		  "mask": "11.11.1111",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "153",
+		"name": "LOAD INPUT",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "text",
+		  "mask": "11.11.1111",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "108",
+		"name": "SHIPPER",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "multiline",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "109",
+		"name": "CONSIGNEE",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "multiline",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "110",
+		"name": "NOTIFY PARTY",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "multiline",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "137",
+		"name": "TELEX RELEASE",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "NO",
+			  "color": "F9C2C2",
+			  "_cid": "f7242832-e5c3-c99e-dac4-7cce1ea8408f",
+			  "id": "1"
+			},
+			{
+			  "name": "YES",
+			  "color": "D0FBBF",
+			  "_cid": "1b09e9a1-ee79-99b9-ae25-cf787d5a2b03",
+			  "id": "2"
+			}
+		  ],
+		  "defaultValue": true,
+		  "defaultEmptyValue": [
+			"1"
+		  ]
+		}
+	  },
+	  {
+		"id": "131",
+		"name": "LOAD INFORMATION",
+		"type": "group",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {
+		  "142": [
+			"2",
+			"$EMPTY"
+		  ]
+		},
+		"config": {}
+	  },
+	  {
+		"id": "144",
+		"name": "CONTAINERS",
+		"type": "object",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"eventable": true,
+		"visible": {},
+		"config": {
+		  "multiselect": true,
+		  "accessOnly": false,
+		  "enableCreate": true,
+		  "enableUnsaved": true,
+		  "enableSelect": false,
+		  "mode": "table",
+		  "catalogs": [
+			{
+			  "id": "108",
+			  "title": "CONTAINERS",
+			  "icon": "content-11",
+			  "removed": false
+			}
+		  ],
+		  "views": [],
+		  "fields": {
+			"108": [
+			  {
+				"id": "2",
+				"name": "NUMBER",
+				"type": "text",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "type": "text",
+				  "defaultEmptyValue": ""
+				}
+			  },
+			  {
+				"id": "8",
+				"name": "SEAL NO",
+				"type": "text",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "type": "text",
+				  "defaultEmptyValue": ""
+				}
+			  },
+			  {
+				"id": "3",
+				"name": "TARE WEIGHT",
+				"type": "number",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"eventable": true,
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "unit": "kg",
+				  "min": "0",
+				  "defaultEmptyValue": null
+				}
+			  },
+			  {
+				"id": "7",
+				"name": "GROSS WEIGHT",
+				"type": "number",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"eventable": true,
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "unit": "kg",
+				  "min": "0",
+				  "defaultEmptyValue": null
+				}
+			  },
+			  {
+				"id": "4",
+				"name": "TOTAL WEIGHT",
+				"type": "number",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": true,
+				"comment": "",
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "unit": "kg",
+				  "min": 0,
+				  "defaultEmptyValue": null
+				}
+			  },
+			  {
+				"id": "10",
+				"name": "CBM",
+				"type": "number",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "unit": "m3",
+				  "min": "0",
+				  "defaultEmptyValue": null
+				}
+			  },
+			  {
+				"id": "11",
+				"name": "QTY",
+				"type": "number",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "unit": "pc",
+				  "min": "0",
+				  "defaultEmptyValue": null
+				}
+			  },
+			  {
+				"id": "15",
+				"name": "TYPE",
+				"type": "dropdown",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "multiselect": false,
+				  "items": [
+					{
+					  "name": "20DC",
+					  "color": "D3E3FF",
+					  "_cid": "bcf94300-2654-4e1c-1c89-4ead0ac4e539",
+					  "id": "1"
+					},
+					{
+					  "name": "20TC",
+					  "color": "D3E3FF",
+					  "_cid": "a86b516d-5fdb-7533-3b3e-6c1b6f32f661",
+					  "id": "2"
+					},
+					{
+					  "name": "40HQ",
+					  "color": "D3E3FF",
+					  "_cid": "a93388d6-bf52-0c71-3bb6-f88977493468",
+					  "id": "3"
+					}
+				  ],
+				  "defaultEmptyValue": []
+				}
+			  },
+			  {
+				"id": "6",
+				"name": "PACKAGE TYPE",
+				"type": "text",
+				"hint": "",
+				"required": false,
+				"history": true,
+				"filterable": true,
+				"apiOnly": false,
+				"comment": "",
+				"editable": true,
+				"visible": {},
+				"config": {
+				  "type": "multiline",
+				  "defaultEmptyValue": ""
+				}
+			  }
+			]
+		  },
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "145",
+		"name": "GROSS WEIGHT",
+		"type": "number",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "unit": "kg",
+		  "min": "0",
+		  "defaultEmptyValue": null
+		}
+	  },
+	  {
+		"id": "146",
+		"name": "TOTAL WEIGHT",
+		"type": "number",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "unit": "kg",
+		  "min": "0",
+		  "defaultEmptyValue": null
+		}
+	  },
+	  {
+		"id": "147",
+		"name": "CBM",
+		"type": "number",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "unit": "m3",
+		  "min": "0",
+		  "defaultEmptyValue": null
+		}
+	  },
+	  {
+		"id": "148",
+		"name": "QTY",
+		"type": "number",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "unit": "pc",
+		  "min": "0",
+		  "defaultEmptyValue": null
+		}
+	  },
+	  {
+		"id": "133",
+		"name": "COUNT",
+		"type": "number",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": true,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "unit": "pc",
+		  "min": "0",
+		  "defaultEmptyValue": null
+		}
+	  },
+	  {
+		"id": "132",
+		"name": "TYPE",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": true,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "20DC",
+			  "color": "D3E3FF",
+			  "_cid": "6c349af9-ceba-76d3-ada2-77cff9baa8a6",
+			  "id": "1"
+			},
+			{
+			  "name": "20TC",
+			  "color": "D3E3FF",
+			  "_cid": "2b601afb-569a-f9f1-f234-3b5b382fa46e",
+			  "id": "2"
+			},
+			{
+			  "name": "40HQ",
+			  "color": "D3E3FF",
+			  "_cid": "61f53d9e-e5c6-311f-cd44-a5129d449626",
+			  "id": "3"
+			}
+		  ],
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "149",
+		"name": "MASS OPERATION",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "multiline",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "134",
+		"name": "CARGO INFORMATION",
+		"type": "group",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {
+		  "142": [
+			"2",
+			"$EMPTY"
+		  ]
+		},
+		"config": {}
+	  },
+	  {
+		"id": "63",
+		"name": "SOC - COC",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "SOC",
+			  "color": "D0FBBF",
+			  "_cid": "c1d7b091-44fb-176b-df95-d84bb7758b22",
+			  "id": "1"
+			},
+			{
+			  "name": "COC",
+			  "color": "D3E3FF",
+			  "_cid": "6d0439f7-82e8-0fff-4af6-81865e1c1798",
+			  "id": "2"
+			}
+		  ],
+		  "defaultValue": false,
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "16",
+		"name": "DESCRIPTION",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "multiline",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "156",
+		"name": "DG CLASS",
+		"type": "object",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "accessOnly": false,
+		  "enableCreate": false,
+		  "enableUnsaved": false,
+		  "enableSelect": true,
+		  "mode": "list",
+		  "catalogs": [],
+		  "views": [
+			{
+			  "id": "29",
+			  "catalogId": "120",
+			  "title": "DG CLASSES / CLASS",
+			  "catalogTitle": "DG CLASSES",
+			  "catalogIcon": "content-11",
+			  "removed": false
+			}
+		  ],
+		  "fields": {},
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "157",
+		"name": "DG SUBCLASS",
+		"type": "object",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "accessOnly": false,
+		  "enableCreate": false,
+		  "enableUnsaved": false,
+		  "enableSelect": true,
+		  "mode": "list",
+		  "catalogs": [
+			{
+			  "id": "120",
+			  "title": "DG CLASSES",
+			  "icon": "content-11",
+			  "removed": false,
+			  "dynamicFilters": [
+				{
+				  "fieldId": "3",
+				  "value": [
+					{
+					  "fieldId": "156"
+					}
+				  ]
+				}
+			  ]
+			}
+		  ],
+		  "views": [],
+		  "fields": {},
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "116",
+		"name": "FREIGHT TERMS",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "PREPAID",
+			  "color": "D3E3FF",
+			  "_cid": "3c9de6e5-b413-0e2f-17cb-a571f8cca16f",
+			  "id": "1"
+			},
+			{
+			  "name": "COLLECT",
+			  "color": "EEFFB8",
+			  "_cid": "626f5f05-7fa7-7cd0-e80b-2cd747e6a2aa",
+			  "id": "2"
+			}
+		  ],
+		  "defaultValue": false,
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "39",
+		"name": "RELEASE",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "YES",
+			  "color": "D3E3FF",
+			  "_cid": "dad426cf-e647-14d9-0a8f-e7c629202e2f",
+			  "id": "1"
+			},
+			{
+			  "name": "NO",
+			  "color": "EEFFB8",
+			  "_cid": "5634a41e-e7d3-bab6-d988-c8f937620384",
+			  "id": "2"
+			}
+		  ],
+		  "defaultValue": false,
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "123",
+		"name": "RELEASE DATE",
+		"type": "date",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "time": false,
+		  "defaultValue": false
+		}
+	  },
+	  {
+		"id": "118",
+		"name": "EMPTY DROP LOCATION",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "St.-Petersburg",
+			  "color": "D3E3FF",
+			  "_cid": "09eea50b-fb32-7eb0-00a4-4cd50f334fcb",
+			  "id": "1"
+			},
+			{
+			  "name": "Msk",
+			  "color": "D3E3FF",
+			  "_cid": "5ae71651-4aaa-5172-0174-bb5e7994e3b3",
+			  "id": "2"
+			},
+			{
+			  "name": "Ekb",
+			  "color": "D3E3FF",
+			  "_cid": "eb12a8be-58de-f41b-f3af-d3fdbb767688",
+			  "id": "3"
+			},
+			{
+			  "name": "Nsk",
+			  "color": "D3E3FF",
+			  "_cid": "b1d13977-6dd7-b85e-ff17-b36bab2b3cec",
+			  "id": "4"
+			}
+		  ],
+		  "defaultValue": false,
+		  "defaultEmptyValue": []
+		}
+	  },
+	  {
+		"id": "119",
+		"name": "EMPTY DELIVERY DATE",
+		"type": "date",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "time": false,
+		  "defaultValue": false
+		}
+	  },
+	  {
+		"id": "120",
+		"name": "COMMENT",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "type": "multiline",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "143",
+		"name": "CREATE",
+		"type": "group",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {}
+	  },
+	  {
+		"id": "140",
+		"name": "BOOKINGS NUMBER",
+		"type": "text",
+		"hint": "",
+		"required": false,
+		"history": false,
+		"filterable": false,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {
+		  "142": [
+			"1"
+		  ]
+		},
+		"config": {
+		  "type": "multiline",
+		  "defaultEmptyValue": ""
+		}
+	  },
+	  {
+		"id": "142",
+		"name": " BOOKINGS MASS CREATE",
+		"type": "dropdown",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "multiselect": false,
+		  "items": [
+			{
+			  "name": "NO",
+			  "color": "D3E3FF",
+			  "_cid": "a329014f-b793-2a9e-70fd-332e52bac448",
+			  "id": "2"
+			},
+			{
+			  "name": "YES",
+			  "color": "D3E3FF",
+			  "_cid": "5a6b2583-3f91-4a24-f9e8-d00c6adcad47",
+			  "id": "1"
+			}
+		  ],
+		  "defaultValue": true,
+		  "defaultEmptyValue": [
+			"2"
+		  ]
+		}
+	  },
+	  {
+		"id": "155",
+		"name": "system",
+		"type": "group",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": false,
+		"comment": "",
+		"visible": {},
+		"config": {}
+	  },
+	  {
+		"id": "135",
+		"name": "CARGO READY DATE",
+		"type": "date",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": true,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "time": false
+		}
+	  },
+	  {
+		"id": "136",
+		"name": "LOADING OF CONTAINER DATE",
+		"type": "date",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": true,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "time": false
+		}
+	  },
+	  {
+		"id": "139",
+		"name": "ETD POL",
+		"type": "date",
+		"hint": "",
+		"required": false,
+		"history": true,
+		"filterable": true,
+		"apiOnly": true,
+		"comment": "",
+		"visible": {},
+		"config": {
+		  "time": false
+		}
+	  }
+	]
+  }

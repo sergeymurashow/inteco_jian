@@ -1,28 +1,29 @@
 import dayjs from "dayjs"
+import { ifsumData } from "src/utils/functions"
 
 export const insum = {
 	'00':  {
 		1: '00',
 		2: 'IFCSUM',
 		3: 'MANIFEST',
-		4: getFileFunction( 'original' ),
+		4: ifsumData.getFileFunction( 'original' ),
 		5: '',
 		6: '',
-		7: getFileCreateTime()
+		7: ifsumData.getFileCreateTime()
 	},
 	'01': {
 		1: '10',
-		2: getVesselCode(),
-		3: getVessel(),
+		2: ifsumData.getVesselCode(),
+		3: ifsumData.getVessel(),
 		4: '',
-		5: getVoyage(),
+		5: ifsumData.getVoyage(),
 		7: '',
 		8: '',
-		9: getSalingDate(),
-		10: getDepartPortCode(),
-		11: getDepartCode(),
+		9: ifsumData.getSalingDate(),
+		10: ifsumData.getDepartPortCode(),
+		11: ifsumData.getDepartCode(),
 		12: '',
 		13: '',
-		14: getQuantityNumberOfContainer()
+		14: ifsumData.getQuantityNumberOfContainer()
 	}
 }

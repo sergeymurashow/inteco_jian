@@ -5,7 +5,7 @@ import { sendParsed } from './callback'
 
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
-import { Booking, Contract, Obj, Container, Params } from './types'
+import { Booking, Contract, Obj, Container, Params } from './types/types'
 import { mergeSheets } from './utils/merge'
 import { transcribeContractNumber } from './utils/transcribeContractNumber'
 

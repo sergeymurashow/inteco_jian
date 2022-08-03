@@ -1,4 +1,4 @@
-import { Obj } from "src/types"
+import { Obj } from "src/types/types"
 
 export function mergeSheets(sheets: Obj) {
 	let result: Obj = {}

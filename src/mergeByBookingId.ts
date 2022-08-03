@@ -1,4 +1,4 @@
-import { Booking, Contract, Obj, Container, Params } from './types'
+import { Booking, Contract, Obj, Container, Params } from './types/types'
 
 
 
