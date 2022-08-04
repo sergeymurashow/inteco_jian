@@ -57,8 +57,7 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 		notifyParty: data.J,
 		mark: data.K,
 		owner: data.W,
-		mension: data.L,
-		type: data.M,
+		type: data.L + data.M,
 		hs: null,
 		containers: [
 			getContainer(data)
