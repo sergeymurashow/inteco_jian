@@ -55,6 +55,7 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 		consignee: data.I,
 		notifyParty: data.J,
 		mark: data.K,
+		owner: data.W,
 		hs: null,
 		containers: [
 			getContainer(data)
