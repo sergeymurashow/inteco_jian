@@ -7,6 +7,7 @@ import xls from 'xlsx'
 import { readFile } from 'xlsx'
 import { Booking, Contract, Obj, Container, Params } from './types'
 import { mergeSheets } from './utils/merge'
+import { transcribeContractNumber } from './utils/transcribeContractNumber'
 
 /*TODO 
 — Create object structure
@@ -139,7 +140,7 @@ export function contractAndBookingParser(params: Params) {
 			.map(m => {
 				return { 
 					bookingId: clearString(m.C), 
-					contract: clearString(m.B), 
+					contract: transcribeContractNumber(clearString(m.B).toString()), 
 					voyageNumber: clearString(m.H.match(/INT\d+/)[0]),
 					containersCount: +clearString(m.D),
 					type: clearString(m.E),
