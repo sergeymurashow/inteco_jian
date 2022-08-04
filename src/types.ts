@@ -23,7 +23,9 @@ export type Booking = {
 	hs?: string | null,
 	containers?: Array<Container>
 	contract?: string,
-	owner?: string
+	owner?: string,
+	mension?: string,
+	type?: string
 }
 
 export type Container = {

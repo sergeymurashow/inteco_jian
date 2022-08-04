@@ -28,7 +28,7 @@ function getAddr(key: string) {
 }
 
 function getContainer(data: Obj): Container {
-	return {
+	const resp = {
 		mension: data.L,
 		type: data.M,
 		vol: data.N,
@@ -41,6 +41,7 @@ function getContainer(data: Obj): Container {
 		freight: data.V,
 		owner: data.W
 	}
+	return resp
 }
 
 function getBooking(data: Obj, voyageNumber: string): Booking {
@@ -56,6 +57,8 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 		notifyParty: data.J,
 		mark: data.K,
 		owner: data.W,
+		mension: data.L,
+		type: data.M,
 		hs: null,
 		containers: [
 			getContainer(data)
