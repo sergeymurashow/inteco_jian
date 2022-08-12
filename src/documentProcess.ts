@@ -44,18 +44,18 @@ module.exports = documentProcess
 
 
 
-const testData = [
-            {
-                "id": 10536,
-                "title": "manifest_short.xls",
-                "size": 34816,
-                "url": "http://89.108.119.30:22035/storage/1/c2ddd3ab-ecb3-4de0-9660-9aec81a4f405/manifest_short.xls",
-                "mimeType": "application/vnd.ms-excel",
-                "metadata": null,
-				"docType": 'manifest'
-            }
-        ]
+// const testData = [
+//             {
+//                 "id": 10536,
+//                 "title": "manifest_short.xls",
+//                 "size": 34816,
+//                 "url": "http://89.108.119.30:22035/storage/1/c2ddd3ab-ecb3-4de0-9660-9aec81a4f405/manifest_short.xls",
+//                 "mimeType": "application/vnd.ms-excel",
+//                 "metadata": null,
+// 				"docType": 'manifest'
+//             }
+//         ]
 
-	; (async () => {
-		await documentProcess(testData)
-	})()
+// 	; (async () => {
+// 		await documentProcess(testData)
+// 	})()
