@@ -135,3 +135,9 @@ export type port = {
 	port: string,
 	code: string
 }
+
+
+export type record = {
+	catalogId: string,
+	recordId: string
+}

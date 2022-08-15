@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import _ from 'lodash'
-import { sendParsed } from './callback'
+import { sendParsed } from './callbacks/callbackParsedDocs'
 
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
