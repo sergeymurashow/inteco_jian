@@ -1,8 +1,8 @@
-import { downloadFiles } from './downloadFiles'
+import { downloadFiles } from './utils/downloadFiles'
 import { manifestParser, contractAndBookingParser } from './parseExcel'
-import { createCatalogs } from './createCatalogs'
+import { createCatalogs } from './utils/createCatalogs'
 import { mergeByBookingId } from './mergeByBookingId'
-import { sendParsed } from './callback'
+import { sendParsed } from './callbacks/callbackParsedDocs'
 import { Obj } from './types/types'
 import Path from 'path'
 import Fs from 'fs'
@@ -43,28 +43,18 @@ module.exports = documentProcess
 
 
 
-const testData = [
-	{
-		"id": 10478,
-		"title": "contract_short.xlsx",
-		"size": 9741,
-		"url": "http://89.108.119.30:22035/storage/1/ef59f104-795e-4f57-b148-3992d7637585/contract_short.xlsx",
-		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-		"metadata": null,
-		"docType": "contract"
-	},
-	// {
-	// 	"id": 10492,
-	// 	"title": "manifest_short.xls",
-	// 	"size": 34816,
-	// 	"url": "http://89.108.119.30:22035/storage/1/b51d7b64-e21a-4b66-940b-a5ecbd67c2b8/manifest_short.xls",
-	// 	"mimeType": "application/vnd.ms-excel",
-	// 	"metadata": null,
-	// 	"docType": "manifest"
-	// }
+// const testData = [
+//             {
+//                 "id": 10536,
+//                 "title": "manifest_short.xls",
+//                 "size": 34816,
+//                 "url": "http://89.108.119.30:22035/storage/1/c2ddd3ab-ecb3-4de0-9660-9aec81a4f405/manifest_short.xls",
+//                 "mimeType": "application/vnd.ms-excel",
+//                 "metadata": null,
+// 				"docType": 'manifest'
+//             }
+//         ]
 
-]
-
-	; (async () => {
-		await documentProcess(testData)
-	})()
+	// ; (async () => {
+	// 	await documentProcess(testData)
+	// })()

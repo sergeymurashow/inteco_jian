@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import _ from 'lodash'
-import { sendParsed } from './callback'
+import { sendParsed } from './callbacks/callbackParsedDocs'
 
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
@@ -28,7 +28,7 @@ function getAddr(key: string) {
 }
 
 function getContainer(data: Obj): Container {
-	return {
+	const resp = {
 		mension: data.L,
 		cType: data.M,
 		vol: data.N,
@@ -41,6 +41,7 @@ function getContainer(data: Obj): Container {
 		freight: data.V,
 		owner: data.W
 	}
+	return resp
 }
 
 function getBooking(data: Obj, voyageNumber: string): Booking {
@@ -55,6 +56,8 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 		consignee: data.I,
 		notifyParty: data.J,
 		mark: data.K,
+		owner: data.W,
+		type: data.L + data.M,
 		hs: null,
 		containers: [
 			getContainer(data)
@@ -115,7 +118,8 @@ export function manifestParser(params: Params) {
 	return collect
 }
 
-function clearString(data: string) {
+function clearString(data: string | number ) {
+	if( typeof data === 'number' ) return data
 	try {
 		if (!data) return
 		return data.replace(/(^\s+|\s+$)/g, '')
@@ -137,10 +141,14 @@ export function contractAndBookingParser(params: Params) {
 				return f.C && f.C.match(/INJIAN\d+/)
 			})
 			.map(m => {
-				return {
-					bookingId: clearString(m.C),
-					contract: transcribeContractNumber(clearString(m.B)),
-					voyageNumber: clearString(m.H.match(/INT\d+/)[0])
+				return { 
+					bookingId: clearString(m.C), 
+					contract: transcribeContractNumber(clearString(m.B).toString()), 
+					voyageNumber: clearString(m.H.match(/INT\d+/)[0]),
+					containersCount: +clearString(m.D),
+					type: clearString(m.E),
+					gWeight: clearString(m.F),
+					shipper: clearString(m.G)
 				}
 			})
 	} catch (err) {
