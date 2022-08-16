@@ -124,7 +124,7 @@ export function manifestParser(params: Params) {
 		}
 	});
 	collect = _.toArray(collect)
-	sendParsed(collect)
+	// sendParsed(collect)
 	console.log(collect)
 	return collect
 }
@@ -166,7 +166,7 @@ export function contractAndBookingParser(params: Params) {
 		console.error(err)
 	}
 
-	sendParsed(collect)
+	// sendParsed(collect)
 	console.log(collect)
 	return collect
 }
