@@ -18,7 +18,7 @@ const filesDir = path.resolve('files', 'new')
 const file = path.resolve(filesDir, 'MANIFEST.xls')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
-let t = manifestParser( {fileName: file} )
+// let t = manifestParser( {fileName: file} )
 
 
 function getAddr(key: string) {
