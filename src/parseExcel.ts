@@ -15,10 +15,10 @@ import { transcribeContractNumber } from './utils/transcribeContractNumber'
 */
 
 const filesDir = path.resolve('files', 'new')
-const file = path.resolve(filesDir, 'MANIFEST.xls')
+const file = path.resolve(filesDir, 'MANIFEST_one.xls')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
-// let t = manifestParser( {fileName: file} )
+let t = manifestParser( {fileName: file} )
 
 
 function getAddr(key: string) {
@@ -43,7 +43,7 @@ function getContainer(data: Obj): Container {
 		tWeight: data.R,
 		cbm: data.S,
 		freight: data.T,
-		owner: data.U,
+		owner: data.U ? data.U.replace(/\t+/g, '') : data.U,
 		type: data.K + data.L
 	}
 	return resp
@@ -66,9 +66,10 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 		consignee: data.G,
 		notifyParty: data.H,
 		mark: data.I,
-		owner: data.U,
+		owner: data.U ? data.U.replace(/\t+/g, '') : data.U,
 		type: data.K + data.L,
-		hs: data.J,
+		hs: data.J ? data.J.replace(/\t+/g, '') : data.J,
+		freight: data.T,
 		containers: [
 			getContainer(data)
 		]
@@ -106,7 +107,7 @@ export function manifestParser(params: Params) {
 	let bigSheet = [].concat(...parsedSheet)
 
 
-	let voyage: string = bigSheet[1].B.match(/INT\d+/)[0]
+	let voyage: string = bigSheet[1].B.match(/INT\d+.*/)[0]
 
 	let collect = {}
 	let tmp: string
@@ -115,7 +116,7 @@ export function manifestParser(params: Params) {
 		if (chk) {
 			tmp = fo.A
 			collect[tmp] = getBooking(fo, voyage)
-		} else if (tmp && fo.L) {
+		} else if (tmp && fo.N) {
 			if (fo.A) collect[tmp].hs = fo.A
 			collect[tmp]['containers'].push(
 				getContainer(fo)
@@ -123,7 +124,7 @@ export function manifestParser(params: Params) {
 		}
 	});
 	collect = _.toArray(collect)
-	// sendParsed('manifest', collect)
+	sendParsed(collect)
 	console.log(collect)
 	return collect
 }
@@ -165,7 +166,7 @@ export function contractAndBookingParser(params: Params) {
 		console.error(err)
 	}
 
-	// sendParsed('contracts', collect)
+	sendParsed(collect)
 	console.log(collect)
 	return collect
 }

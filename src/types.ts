@@ -23,7 +23,8 @@ export type Booking = {
 	containers?: Array<Container>
 	contract?: string,
 	owner?: string,
-	type?: string
+	type?: string,
+	freight?: string
 }
 
 export type Container = {
