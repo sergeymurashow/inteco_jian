@@ -14,10 +14,11 @@ import { transcribeContractNumber } from './utils/transcribeContractNumber'
 — Group values by booking ID
 */
 
-const filesDir = path.resolve('files')
-const file = path.resolve(filesDir, 'INTECO Qingdao 6.20.xlsx')
+const filesDir = path.resolve('files', 'new')
+const file = path.resolve(filesDir, 'MANIFEST.xls')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
+let t = manifestParser( {fileName: file} )
 
 
 function getAddr(key: string) {
@@ -28,37 +29,46 @@ function getAddr(key: string) {
 }
 
 function getContainer(data: Obj): Container {
+	try {
+		data.K = data.K.toString().replace(/[^\d]/g, '')
+		} catch( e ) {
+			console.log( typeof data.K )
+		}
 	const resp = {
-		mension: data.L,
-		type: data.M,
-		vol: data.N,
-		number: data.O,
-		seal: data.P,
-		packages: data.Q,
-		gWeight: data.R,
-		tWeight: data.T,
-		cbm: data.U,
-		freight: data.V,
-		owner: data.W
+		vol: data.M,
+		number: data.N,
+		seal: data.O,
+		packages: data.P,
+		gWeight: data.Q,
+		tWeight: data.R,
+		cbm: data.S,
+		freight: data.T,
+		owner: data.U,
+		type: data.K + data.L
 	}
 	return resp
 }
 
 function getBooking(data: Obj, voyageNumber: string): Booking {
+	try {
+	data.K = data.K.toString().replace(/[^\d]/g, '')
+	} catch( e ) {
+		console.log( typeof data.K )
+	}
 	return {
 		bookingId: data.A,
 		voyageNumber: voyageNumber,
-		pkgs: data.C,
-		packType: data.D,
-		gWeight: data.E,
-		desc: data.G,
-		shipper: data.H,
-		consignee: data.I,
-		notifyParty: data.J,
-		mark: data.K,
-		owner: data.W,
-		type: data.L + data.M,
-		hs: null,
+		pkgs: data.B,
+		packType: data.C,
+		gWeight: data.D,
+		desc: data.E,
+		shipper: data.F,
+		consignee: data.G,
+		notifyParty: data.H,
+		mark: data.I,
+		owner: data.U,
+		type: data.K + data.L,
+		hs: data.J,
 		containers: [
 			getContainer(data)
 		]
@@ -96,7 +106,7 @@ export function manifestParser(params: Params) {
 	let bigSheet = [].concat(...parsedSheet)
 
 
-	let voyage: string = bigSheet[2].C.match(/INT\d+/)[0]
+	let voyage: string = bigSheet[1].B.match(/INT\d+/)[0]
 
 	let collect = {}
 	let tmp: string

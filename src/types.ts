@@ -6,7 +6,6 @@ export type Obj = {
 
 export type Params = {
 	fileName: string
-	test?: Params
 }
 
 export type Booking = {
@@ -28,8 +27,6 @@ export type Booking = {
 }
 
 export type Container = {
-	mension: string,
-	type: string,
 	vol: string,
 	number: string,
 	seal: string,
@@ -38,7 +35,8 @@ export type Container = {
 	tWeight: string,
 	cbm: string,
 	freight: string,
-	owner: string
+	owner: string,
+	type: string
 }
 
 export type Contract = {
