@@ -8,6 +8,7 @@ import { readFile } from 'xlsx'
 import { Booking, Contract, Obj, Container, Params } from './types'
 import { mergeSheets } from './utils/merge'
 import { transcribeContractNumber } from './utils/transcribeContractNumber'
+import { numberTemplater } from './utils/counter'
 
 /*TODO 
 — Create object structure
@@ -66,7 +67,7 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 		consignee: data.H,
 		notifyParty: data.I,
 		mark: data.J,
-		owner: data.V ? data.V.replace(/\t+/g, '') : data.V,
+		owner: data.V ? data.V.replace(/[^a-zA-Z]/g, '') : data.V,
 		type: data.L + data.M,
 		hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
 		freight: data.U,
