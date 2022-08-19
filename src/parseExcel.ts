@@ -8,7 +8,7 @@ import { readFile } from 'xlsx'
 import { Booking, Contract, Obj, Container, Params } from './types'
 import { mergeSheets } from './utils/merge'
 import { transcribeContractNumber } from './utils/transcribeContractNumber'
-import { numberTemplater } from './utils/counter'
+import fixVoyageNumber from './utils/fixVoyageNumber'
 
 /*TODO 
 — Create object structure
@@ -21,6 +21,7 @@ const file = path.resolve(filesDir, 'MANIFEST_one.xls')
 
 // let t = manifestParser( {fileName: file} )
 
+// console.log( JSON.stringify( t ))
 
 function getAddr(key: string) {
 	return {
@@ -108,7 +109,7 @@ export function manifestParser(params: Params) {
 	let bigSheet = [].concat(...parsedSheet)
 
 
-	let voyage: string = bigSheet[1].C.match(/INT\d+.*/)[0]
+	let voyage: string = fixVoyageNumber(bigSheet[1].C)
 
 	let collect = {}
 	let tmp: string
