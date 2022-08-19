@@ -8,7 +8,7 @@ export type Params = {
 	fileName: string
 }
 
-export type Booking = {
+export interface Booking {
 	bookingId: string,
 	voyageNumber?: string,
 	pkgs?: string,
@@ -27,17 +27,21 @@ export type Booking = {
 	freight?: string
 }
 
+export interface BookingAccounting extends Booking {
+	sum: string
+}
+
 export type Container = {
-	vol: string,
+	vol?: string,
 	number: string,
-	seal: string,
-	packages: string,
-	gWeight: string,
-	tWeight: string,
-	cbm: string,
-	freight: string,
-	owner: string,
-	type: string
+	seal?: string,
+	packages?: string,
+	gWeight?: string,
+	tWeight?: string,
+	cbm?: string,
+	freight?: string,
+	owner?: string,
+	type?: string
 }
 
 export type Contract = {

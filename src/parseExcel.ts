@@ -35,41 +35,41 @@ function getContainer(data: Obj): Container {
 			console.log( typeof data.K )
 		}
 	const resp = {
-		vol: data.M,
-		number: data.N,
-		seal: data.O,
-		packages: data.P,
-		gWeight: data.Q,
-		tWeight: data.R,
-		cbm: data.S,
-		freight: data.T,
-		owner: data.U ? data.U.replace(/\t+/g, '') : data.U,
-		type: data.K + data.L
+		vol: data.N,
+		number: data.O,
+		seal: data.P,
+		packages: data.Q,
+		gWeight: data.R,
+		tWeight: data.S,
+		cbm: data.T,
+		freight: data.U,
+		owner: data.V ? data.V.replace(/\t+/g, '') : data.V,
+		type: data.L + data.M
 	}
 	return resp
 }
 
 function getBooking(data: Obj, voyageNumber: string): Booking {
 	try {
-	data.K = data.K.toString().replace(/[^\d]/g, '')
+	data.L = data.L.toString().replace(/[^\d]/g, '')
 	} catch( e ) {
-		console.log( typeof data.K )
+		console.log( typeof data.L )
 	}
 	return {
-		bookingId: data.A,
+		bookingId: data.B,
 		voyageNumber: voyageNumber,
-		pkgs: data.B,
-		packType: data.C,
-		gWeight: data.D,
-		desc: data.E,
-		shipper: data.F,
-		consignee: data.G,
-		notifyParty: data.H,
-		mark: data.I,
-		owner: data.U ? data.U.replace(/\t+/g, '') : data.U,
-		type: data.K + data.L,
-		hs: data.J ? data.J.replace(/\t+/g, '') : data.J,
-		freight: data.T,
+		pkgs: data.C,
+		packType: data.D,
+		gWeight: data.E,
+		desc: data.F,
+		shipper: data.G,
+		consignee: data.H,
+		notifyParty: data.I,
+		mark: data.J,
+		owner: data.V ? data.V.replace(/\t+/g, '') : data.V,
+		type: data.L + data.M,
+		hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
+		freight: data.U,
 		containers: [
 			getContainer(data)
 		]
@@ -107,17 +107,17 @@ export function manifestParser(params: Params) {
 	let bigSheet = [].concat(...parsedSheet)
 
 
-	let voyage: string = bigSheet[1].B.match(/INT\d+.*/)[0]
+	let voyage: string = bigSheet[1].C.match(/INT\d+.*/)[0]
 
 	let collect = {}
 	let tmp: string
 	bigSheet.forEach(fo => {
-		let chk = fo.A && fo.A.match(/INJIAN/)
+		let chk = fo.B && fo.B.match(/INJIAN/)
 		if (chk) {
-			tmp = fo.A
+			tmp = fo.B
 			collect[tmp] = getBooking(fo, voyage)
-		} else if (tmp && fo.N) {
-			if (fo.A) collect[tmp].hs = fo.A
+		} else if (tmp && fo.M) {
+			if (fo.B) collect[tmp].hs = fo.B
 			collect[tmp]['containers'].push(
 				getContainer(fo)
 			)
