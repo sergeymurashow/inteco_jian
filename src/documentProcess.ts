@@ -45,16 +45,16 @@ module.exports = documentProcess
 
 
 // const testData = [
-//             {
-//                 "id": 10536,
-//                 "title": "manifest_short.xls",
-//                 "size": 34816,
-//                 "url": "http://89.108.119.30:22035/storage/1/c2ddd3ab-ecb3-4de0-9660-9aec81a4f405/manifest_short.xls",
-//                 "mimeType": "application/vnd.ms-excel",
-//                 "metadata": null,
-// 				"docType": 'manifest'
-//             }
-//         ]
+//         {
+//             "id": 10558,
+//             "title": "voyage009N88.xlsx",
+//             "size": 21480,
+//             "url": "http://89.108.119.30:22020/storage/1/b5a29bd2-d7f7-4139-b324-9f2fbd6e6a6f/voyage009N88.xlsx",
+//             "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+//             "metadata": null,
+//             "docType": "contract"
+//         }
+//     ]
 
 // 	; (async () => {
 // 		await documentProcess(testData)

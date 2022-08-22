@@ -148,6 +148,8 @@ export function contractAndBookingParser(params: Params) {
 	let parsedSheet = _.toArray(sheet).map(m => parseSheet(m))
 	let bigSheet = [].concat(...parsedSheet)
 
+	let voyage: string = fixVoyageNumber(bigSheet[1].H)
+
 	let collect
 	try {
 		collect = bigSheet
@@ -157,11 +159,11 @@ export function contractAndBookingParser(params: Params) {
 			.map(m => {
 				return { 
 					bookingId: clearString(m.C), 
-					contract: transcribeContractNumber(clearString(m.B).toString()), 
-					voyageNumber: clearString(m.H.match(/INT\d+/)[0]),
+					contract: transcribeContractNumber(clearString(m.B)), 
+					voyageNumber: voyage,
 					containersCount: +clearString(m.D),
 					type: clearString(m.E),
-					gWeight: clearString(m.F).replace(/,/, '.'),
+					gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
 					shipper: clearString(m.G)
 				}
 			})
