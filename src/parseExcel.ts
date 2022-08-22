@@ -131,8 +131,9 @@ export function manifestParser(params: Params) {
 	return collect
 }
 
-function clearString(data: string | number ) {
-	if( typeof data === 'number' ) return data
+function clearString(data: string | number ): string {
+	if ( !data ) return null
+	if( typeof data === 'number' ) return data.toString()
 	try {
 		if (!data) return
 		return data.replace(/(^\s+|\s+$)/g, '')
@@ -160,7 +161,7 @@ export function contractAndBookingParser(params: Params) {
 					voyageNumber: clearString(m.H.match(/INT\d+/)[0]),
 					containersCount: +clearString(m.D),
 					type: clearString(m.E),
-					gWeight: clearString(m.F),
+					gWeight: clearString(m.F).replace(/,/, '.'),
 					shipper: clearString(m.G)
 				}
 			})
