@@ -5,7 +5,7 @@ import { sendParsed } from './callbacks/callbackParsedDocs'
 
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
-import { Booking, Contract, Obj, Container, Params } from './types'
+import { Booking, Contract, Obj, Container, Params, record } from './types'
 import { mergeSheets } from './utils/merge'
 import { transcribeContractNumber } from './utils/transcribeContractNumber'
 import fixVoyageNumber from './utils/fixVoyageNumber'
@@ -33,9 +33,9 @@ function getAddr(key: string) {
 function getContainer(data: Obj): Container {
 	try {
 		data.K = data.K.toString().replace(/[^\d]/g, '')
-		} catch( e ) {
-			console.log( typeof data.K )
-		}
+	} catch (e) {
+		console.log(typeof data.K)
+	}
 	const resp = {
 		vol: data.N,
 		number: data.O,
@@ -51,11 +51,11 @@ function getContainer(data: Obj): Container {
 	return resp
 }
 
-function getBooking(data: Obj, voyageNumber: string): Booking {
+function getBooking(data: Obj, voyageNumber: Array<record>): Booking {
 	try {
-	data.L = data.L.toString().replace(/[^\d]/g, '')
-	} catch( e ) {
-		console.log( typeof data.L )
+		data.L = data.L.toString().replace(/[^\d]/g, '')
+	} catch (e) {
+		console.log(typeof data.L)
 	}
 	return {
 		bookingId: data.B,
@@ -109,7 +109,7 @@ export function manifestParser(params: Params) {
 	let bigSheet = [].concat(...parsedSheet)
 
 
-	let voyage: string = fixVoyageNumber(bigSheet[1].C)
+	let voyage: Array<record> = params.voyage//fixVoyageNumber(bigSheet[1].B)
 
 	let collect = {}
 	let tmp: string
@@ -131,9 +131,9 @@ export function manifestParser(params: Params) {
 	return collect
 }
 
-function clearString(data: string | number ): string {
-	if ( !data ) return null
-	if( typeof data === 'number' ) return data.toString()
+function clearString(data: string | number): string {
+	if (!data) return null
+	if (typeof data === 'number') return data.toString()
 	try {
 		if (!data) return
 		return data.replace(/(^\s+|\s+$)/g, '')
@@ -148,7 +148,7 @@ export function contractAndBookingParser(params: Params) {
 	let parsedSheet = _.toArray(sheet).map(m => parseSheet(m))
 	let bigSheet = [].concat(...parsedSheet)
 
-	let voyage: string = fixVoyageNumber(bigSheet[1].H)
+	let voyage: Array<record> = params.voyage//fixVoyageNumber(bigSheet[1].H)
 
 	let collect
 	try {
@@ -157,9 +157,9 @@ export function contractAndBookingParser(params: Params) {
 				return f.C && f.C.match(/INJIAN\d+/)
 			})
 			.map(m => {
-				return { 
-					bookingId: clearString(m.C), 
-					contract: transcribeContractNumber(clearString(m.B)), 
+				return {
+					bookingId: clearString(m.C),
+					contract: transcribeContractNumber(clearString(m.B)).answer,
 					voyageNumber: voyage,
 					containersCount: +clearString(m.D),
 					type: clearString(m.E),
@@ -167,13 +167,14 @@ export function contractAndBookingParser(params: Params) {
 					shipper: clearString(m.G)
 				}
 			})
+		console.log(collect)
+		return collect
 	} catch (err) {
-		console.error(err)
+		console.log({err: JSON.stringify( err ) })
 	}
 
 	// sendParsed(collect)
-	console.log(collect)
-	return collect
+
 }
 
 

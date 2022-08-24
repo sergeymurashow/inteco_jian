@@ -5,12 +5,13 @@ export type Obj = {
 }
 
 export type Params = {
-	fileName: string
+	fileName: string,
+	voyage: Array<record>
 }
 
 export interface Booking {
 	bookingId: string,
-	voyageNumber?: string,
+	voyageNumber?: Array<record>,
 	pkgs?: string,
 	packType?: string,
 	gWeight?: string,
