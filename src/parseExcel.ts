@@ -72,6 +72,7 @@ function getBooking(data: Obj, voyageNumber: Array<record>): Booking {
 		type: data.L + data.M,
 		hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
 		freight: data.U,
+		isManifest: [1],
 		containers: [
 			getContainer(data)
 		]
