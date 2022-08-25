@@ -1,10 +1,12 @@
 type Answer = {
 	answer?: any
 	code?: string
-	err?: string
+	err?: any
 }
 
-export default function ( data: Answer ) {
+export default function answerTemplate ( data: Answer ) {
 	const { answer, code, err } = data
 	return { answer, code, err }
 }
+
+console.log( answerTemplate({answer: 'test'}))

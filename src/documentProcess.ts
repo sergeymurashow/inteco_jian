@@ -44,24 +44,24 @@ module.exports = documentProcess
 
 
 
-// const testData = [
-// 	{
-// 		"id": 10585,
-// 		"title": "INTECO  NINGBO HUA DONG 88 INT11N88.xlsx",
-// 		"size": 13447,
-// 		"url": "http://89.108.119.30:22020/storage/1/85885354-1a53-44d2-94f8-60339d95a2cd/INTECO%20%20NINGBO%20HUA%20DONG%2088%20INT11N88.xlsx",
-// 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-// 		"metadata": null,
-// 		"docType": "contract",
-// 		"voyage": [
-// 			{
-// 				"catalogId": "79",
-// 				"recordId": "96"
-// 			}
-// 		]
-// 	}
-// ]
+const testData = [
+	{
+		"id": 10602,
+		"title": "INTECO-NINGBO HUA DONG 88 INT09N88.xlsx",
+		"size": 29359,
+		"url": "http://89.108.119.30:22020/storage/1/779fb2df-065d-498f-8f4e-7ae7d17c4f8b/INTECO-NINGBO%20HUA%20DONG%2088%20INT09N88.xlsx",
+		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		"metadata": null,
+		"docType": "contract",
+		"voyage": [
+			{
+				"catalogId": "79",
+				"recordId": "92"
+			}
+		]
+	}
+]
 
-// 	; (async () => {
-// 		await documentProcess(testData)
-// 	})()
+	; (async () => {
+		await documentProcess(testData)
+	})()

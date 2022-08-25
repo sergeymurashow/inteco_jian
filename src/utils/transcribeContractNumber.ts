@@ -9,9 +9,13 @@ export function transcribeContractNumber(contractNumber: string): any {
 	const checkType = reg.test(contractNumber)
 	if (!checkType) {
 		try {
-			return contractTypes[contractNumber] 
+			if ( contractTypes[contractNumber] ) {
+				return contractTypes[contractNumber] 
+			} else {
+				return answerTemplate( {err: {msg: 'None'}} )
+			}
 		} catch (e) {
-			throw answerTemplate({ err: 'Wrong type!' })
+			return answerTemplate({ err: {msg: 'Wrong type!', desc: e}  })
 		}
 	}
 	let matchedNumber = contractNumber.match( reg )

@@ -151,27 +151,28 @@ export function contractAndBookingParser(params: Params) {
 	let voyage: Array<record> = params.voyage//fixVoyageNumber(bigSheet[1].H)
 
 	let collect
-	try {
-		collect = bigSheet
-			.filter(f => {
-				return f.C && f.C.match(/INJIAN\d+/)
-			})
-			.map(m => {
-				return {
-					bookingId: clearString(m.C),
-					contract: transcribeContractNumber(clearString(m.B)).answer,
-					voyageNumber: voyage,
-					containersCount: +clearString(m.D),
-					type: clearString(m.E),
-					gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
-					shipper: clearString(m.G)
-				}
-			})
-		console.log(collect)
-		return collect
-	} catch (err) {
-		console.log({err: JSON.stringify( err ) })
-	}
+	collect = bigSheet
+		.filter(f => {
+			return f.C && f.C.match(/INJIAN\d+/)
+		})
+		.map(m => {
+			let result = {
+				bookingId: clearString(m.C),
+				contract: transcribeContractNumber(clearString(m.B)).answer,
+				voyageNumber: voyage,
+				containersCount: +clearString(m.D),
+				type: clearString(m.E),
+				gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
+				shipper: clearString(m.G)
+			}
+		if( result.bookingId == 'INJIAN00003419' ) {
+			console.log( result )
+		}
+			return result
+		})
+	console.log(collect)
+	return collect
+
 
 	// sendParsed(collect)
 
