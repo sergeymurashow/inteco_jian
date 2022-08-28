@@ -5,20 +5,23 @@ import { sendParsed } from './callbacks/callbackParsedDocs'
 
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
-import { Booking, Contract, Obj, Container, Params } from './types/types'
+import { Booking, Contract, Obj, Container, Params, record } from './types'
 import { mergeSheets } from './utils/merge'
 import { transcribeContractNumber } from './utils/transcribeContractNumber'
+import fixVoyageNumber from './utils/fixVoyageNumber'
 
 /*TODO 
 — Create object structure
 — Group values by booking ID
 */
 
-const filesDir = path.resolve('files')
-const file = path.resolve(filesDir, 'INTECO Qingdao 6.20.xlsx')
+const filesDir = path.resolve('files', 'new')
+const file = path.resolve(filesDir, 'MANIFEST_one.xls')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
+// let t = manifestParser( {fileName: file} )
 
+// console.log( JSON.stringify( t ))
 
 function getAddr(key: string) {
 	return {
@@ -28,37 +31,48 @@ function getAddr(key: string) {
 }
 
 function getContainer(data: Obj): Container {
+	try {
+		data.K = data.K.toString().replace(/[^\d]/g, '')
+	} catch (e) {
+		console.log(typeof data.K)
+	}
 	const resp = {
-		mension: data.L,
-		cType: data.M,
 		vol: data.N,
 		number: data.O,
 		seal: data.P,
 		packages: data.Q,
 		gWeight: data.R,
-		tWeight: data.T,
-		cbm: data.U,
-		freight: data.V,
-		owner: data.W
+		tWeight: data.S,
+		cbm: data.T,
+		freight: data.U,
+		owner: data.V ? data.V.replace(/\t+/g, '') : data.V,
+		type: data.L + data.M
 	}
 	return resp
 }
 
-function getBooking(data: Obj, voyageNumber: string): Booking {
+function getBooking(data: Obj, voyageNumber: Array<record>): Booking {
+	try {
+		data.L = data.L.toString().replace(/[^\d]/g, '')
+	} catch (e) {
+		console.log(typeof data.L)
+	}
 	return {
-		bookingId: data.A,
+		bookingId: data.B,
 		voyageNumber: voyageNumber,
 		pkgs: data.C,
 		packType: data.D,
 		gWeight: data.E,
-		desc: data.G,
-		shipper: data.H,
-		consignee: data.I,
-		notifyParty: data.J,
-		mark: data.K,
-		owner: data.W,
+		desc: data.F,
+		shipper: data.G,
+		consignee: data.H,
+		notifyParty: data.I,
+		mark: data.J,
+		owner: data.V ? data.V.replace(/[^a-zA-Z]/g, '') : data.V,
 		type: data.L + data.M,
-		hs: null,
+		hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
+		freight: data.U,
+		isManifest: [1],
 		containers: [
 			getContainer(data)
 		]
@@ -96,30 +110,31 @@ export function manifestParser(params: Params) {
 	let bigSheet = [].concat(...parsedSheet)
 
 
-	let voyage: string = bigSheet[2].C.match(/INT\d+/)[0]
+	let voyage: Array<record> = params.voyage//fixVoyageNumber(bigSheet[1].B)
 
 	let collect = {}
 	let tmp: string
 	bigSheet.forEach(fo => {
-		let chk = fo.A && fo.A.match(/INJIAN/)
+		let chk = fo.B && fo.B.match(/INJIAN/)
 		if (chk) {
-			tmp = fo.A
+			tmp = fo.B
 			collect[tmp] = getBooking(fo, voyage)
-		} else if (tmp && fo.L) {
-			if (fo.A) collect[tmp].hs = fo.A
+		} else if (tmp && fo.M) {
+			if (fo.B) collect[tmp].hs = fo.B
 			collect[tmp]['containers'].push(
 				getContainer(fo)
 			)
 		}
 	});
 	collect = _.toArray(collect)
-	// sendParsed('manifest', collect)
+	// sendParsed(collect)
 	console.log(collect)
 	return collect
 }
 
-function clearString(data: string | number ) {
-	if( typeof data === 'number' ) return data
+function clearString(data: string | number): string {
+	if (!data) return null
+	if (typeof data === 'number') return data.toString()
 	try {
 		if (!data) return
 		return data.replace(/(^\s+|\s+$)/g, '')
@@ -134,30 +149,34 @@ export function contractAndBookingParser(params: Params) {
 	let parsedSheet = _.toArray(sheet).map(m => parseSheet(m))
 	let bigSheet = [].concat(...parsedSheet)
 
-	let collect
-	try {
-		collect = bigSheet
-			.filter(f => {
-				return f.C && f.C.match(/INJIAN\d+/)
-			})
-			.map(m => {
-				return { 
-					bookingId: clearString(m.C), 
-					contract: transcribeContractNumber(clearString(m.B).toString()), 
-					voyageNumber: clearString(m.H.match(/INT\d+/)[0]),
-					containersCount: +clearString(m.D),
-					type: clearString(m.E),
-					gWeight: clearString(m.F),
-					shipper: clearString(m.G)
-				}
-			})
-	} catch (err) {
-		console.error(err)
-	}
+	let voyage: Array<record> = params.voyage//fixVoyageNumber(bigSheet[1].H)
 
-	// sendParsed('contracts', collect)
+	let collect
+	collect = bigSheet
+		.filter(f => {
+			return f.C && f.C.match(/INJIAN\d+/)
+		})
+		.map(m => {
+			let result = {
+				bookingId: clearString(m.C),
+				contract: transcribeContractNumber(clearString(m.B)).answer,
+				voyageNumber: voyage,
+				containersCount: +clearString(m.D),
+				type: clearString(m.E),
+				gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
+				shipper: clearString(m.G)
+			}
+		if( result.bookingId == 'INJIAN00003419' ) {
+			console.log( result )
+		}
+			return result
+		})
 	console.log(collect)
 	return collect
+
+
+	// sendParsed(collect)
+
 }
 
 

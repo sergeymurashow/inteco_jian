@@ -5,13 +5,13 @@ export type Obj = {
 }
 
 export type Params = {
-	fileName: string
-	test?: Params
+	fileName: string,
+	voyage: Array<record>
 }
 
-export type Booking = {
+export interface Booking {
 	bookingId: string,
-	voyageNumber?: string,
+	voyageNumber?: Array<record>,
 	pkgs?: string,
 	packType?: string,
 	gWeight?: string,
@@ -24,21 +24,26 @@ export type Booking = {
 	containers?: Array<Container>
 	contract?: string,
 	owner?: string,
-	type?: string
+	type?: string,
+	freight?: string,
+	isManifest?: Array<number>
+}
+
+export interface BookingAccounting extends Booking {
+	sum: string
 }
 
 export type Container = {
-	mension: string,
-	cType: string,
-	vol: string,
+	vol?: string,
 	number: string,
-	seal: string,
-	packages: string,
-	gWeight: string,
-	tWeight: string,
-	cbm: string,
-	freight: string,
-	owner: string
+	seal?: string,
+	packages?: string,
+	gWeight?: string,
+	tWeight?: string,
+	cbm?: string,
+	freight?: string,
+	owner?: string,
+	type?: string
 }
 
 export type Contract = {

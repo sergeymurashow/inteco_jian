@@ -3,9 +3,10 @@ import { manifestParser, contractAndBookingParser } from './parseExcel'
 import { createCatalogs } from './utils/createCatalogs'
 import { mergeByBookingId } from './mergeByBookingId'
 import { sendParsed } from './callbacks/callbackParsedDocs'
-import { Obj } from './types/types'
+import { Obj } from './types'
 import Path from 'path'
 import Fs from 'fs'
+
 
 
 async function documentProcess(data) {
@@ -25,10 +26,10 @@ async function documentProcess(data) {
 	for (let i of data) {
 		switch (i.docType) {
 			case 'manifest':
-				result.booking = manifestParser({ fileName: i.fileName })
+				result.booking = manifestParser({ fileName: i.fileName, voyage: i.voyage })
 				break;
 			case 'contract':
-				result.contract = contractAndBookingParser({ fileName: i.fileName })
+				result.contract = contractAndBookingParser({ fileName: i.fileName, voyage: i.voyage })
 				break;
 		}
 	}
@@ -43,18 +44,24 @@ module.exports = documentProcess
 
 
 
-// const testData = [
-//             {
-//                 "id": 10536,
-//                 "title": "manifest_short.xls",
-//                 "size": 34816,
-//                 "url": "http://89.108.119.30:22035/storage/1/c2ddd3ab-ecb3-4de0-9660-9aec81a4f405/manifest_short.xls",
-//                 "mimeType": "application/vnd.ms-excel",
-//                 "metadata": null,
-// 				"docType": 'manifest'
-//             }
-//         ]
+const testData = [
+	{
+		"id": 10602,
+		"title": "INTECO-NINGBO HUA DONG 88 INT09N88.xlsx",
+		"size": 29359,
+		"url": "http://89.108.119.30:22020/storage/1/779fb2df-065d-498f-8f4e-7ae7d17c4f8b/INTECO-NINGBO%20HUA%20DONG%2088%20INT09N88.xlsx",
+		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		"metadata": null,
+		"docType": "contract",
+		"voyage": [
+			{
+				"catalogId": "79",
+				"recordId": "92"
+			}
+		]
+	}
+]
 
-	// ; (async () => {
-	// 	await documentProcess(testData)
-	// })()
+	; (async () => {
+		await documentProcess(testData)
+	})()
