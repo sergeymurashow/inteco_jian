@@ -3,7 +3,7 @@ import { manifestParser, contractAndBookingParser } from './parseExcel'
 import { createCatalogs } from './utils/createCatalogs'
 import { mergeByBookingId } from './mergeByBookingId'
 import { sendParsed } from './callbacks/callbackParsedDocs'
-import { Obj } from './types'
+import { Obj } from './types/types'
 import Path from 'path'
 import Fs from 'fs'
 

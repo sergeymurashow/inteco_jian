@@ -19,9 +19,9 @@ const filesDir = path.resolve('files', 'new')
 const file = path.resolve(filesDir, 'MANIFEST_one.xls')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
-// let t = manifestParser( {fileName: file} )
+// let t = manifestParser({ fileName: file, voyage: [{ catalogId: '1', recordId: '1' }] })
 
-// console.log( JSON.stringify( t ))
+// console.log(JSON.stringify(t))
 
 function getAddr(key: string) {
 	return {
@@ -36,26 +36,31 @@ function getContainer(data: Obj): Container {
 	} catch (e) {
 		console.log(typeof data.K)
 	}
-	const resp = {
-		vol: data.N,
-		number: data.O,
-		seal: data.P,
-		packages: data.Q,
-		gWeight: data.R,
-		tWeight: data.S,
-		cbm: data.T,
-		freight: data.U,
-		owner: data.V ? data.V.replace(/\t+/g, '') : data.V,
-		type: data.L + data.M
+	let resp
+	try {
+		resp = {
+			vol: data.N,
+			number: data.O,
+			seal: data.P,
+			packages: data.Q,
+			gWeight: data.R,
+			tWeight: data.S,
+			cbm: data.T,
+			freight: data.U,
+			owner: data.V ? data.V.replace(/\t+/g, '') : data.V,
+			type: data.L.toString().replace(/[^\d]/g, '') + data.M.replace(/[^a-zA-Z]/g, '')
+		}
+	} catch (e) {
+		console.log( e )
 	}
 	return resp
 }
 
 function getBooking(data: Obj, voyageNumber: Array<record>): Booking {
-	try {
-		data.L = data.L.toString().replace(/[^\d]/g, '')
-	} catch (e) {
-		console.log(typeof data.L)
+	try{
+		data.L.toString().replace(/[^\d]/g, '')
+	} catch ( e ) {
+		console.error( e )
 	}
 	return {
 		bookingId: data.B,
@@ -119,7 +124,7 @@ export function manifestParser(params: Params) {
 		if (chk) {
 			tmp = fo.B
 			collect[tmp] = getBooking(fo, voyage)
-		} else if (tmp && fo.M) {
+		} else if (tmp && fo.O) {
 			if (fo.B) collect[tmp].hs = fo.B
 			collect[tmp]['containers'].push(
 				getContainer(fo)
@@ -129,7 +134,7 @@ export function manifestParser(params: Params) {
 	collect = _.toArray(collect)
 	// sendParsed(collect)
 	console.log(collect)
-	return collect
+	return _.sortBy(collect, 'bookingId')
 }
 
 function clearString(data: string | number): string {
@@ -166,13 +171,13 @@ export function contractAndBookingParser(params: Params) {
 				gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
 				shipper: clearString(m.G)
 			}
-		if( result.bookingId == 'INJIAN00003419' ) {
-			console.log( result )
-		}
+			if (result.bookingId == 'INJIAN00003419') {
+				console.log(result)
+			}
 			return result
 		})
 	console.log(collect)
-	return collect
+	return _.sortBy(collect, 'bookingId')
 
 
 	// sendParsed(collect)
