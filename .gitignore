@@ -5,4 +5,4 @@ files
 test*
 dist
 default.json
-config.env
+config*
