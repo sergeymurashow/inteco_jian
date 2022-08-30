@@ -15,8 +15,8 @@ import fixVoyageNumber from './utils/fixVoyageNumber'
 — Group values by booking ID
 */
 
-const filesDir = path.resolve('files', 'new')
-const file = path.resolve(filesDir, 'MANIFEST_one.xls')
+const filesDir = path.resolve('files', 'new test')
+const file = path.resolve(filesDir, 'MANIFEST_rf.xls')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
 // let t = manifestParser({ fileName: file, voyage: [{ catalogId: '1', recordId: '1' }] })
@@ -58,7 +58,7 @@ function getContainer(data: Obj): Container {
 
 function getBooking(data: Obj, voyageNumber: Array<record>): Booking {
 	try{
-		data.L.toString().replace(/[^\d]/g, '')
+		data.L = data.L.toString().replace(/[^\d]/g, '')
 	} catch ( e ) {
 		console.error( e )
 	}
