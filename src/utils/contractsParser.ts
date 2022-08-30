@@ -3,7 +3,7 @@ import { transcribeContractNumber } from "./transcribeContractNumber";
 import path from "path";
 import fs from 'fs'
 import dayjs from "dayjs";
-import { Obj } from "src/types";
+import { Obj } from "src/types/types";
 
 const filePath = path.resolve('files', 'ContractsList.xlsx')
 let table = documentsParser(filePath)
