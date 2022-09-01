@@ -1,6 +1,6 @@
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
-import { Obj } from 'src/types'
+import { Obj } from 'src/types/types'
 import _ from 'lodash'
 
 export default function( filePath: string ) {
