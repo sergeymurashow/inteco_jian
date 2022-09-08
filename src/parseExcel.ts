@@ -15,11 +15,11 @@ import fixVoyageNumber from './utils/fixVoyageNumber'
 — Group values by booking ID
 */
 
-const filesDir = path.resolve('files', 'new test')
-const file = path.resolve(filesDir, 'MANIFEST_rf.xls')
+// const filesDir = path.resolve('files', '11N88')
+// const file = path.resolve(filesDir, 'HUA DONG 88 INT11N88.xlsx')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
-// let t = manifestParser({ fileName: file, voyage: [{ catalogId: '1', recordId: '1' }] })
+// let t = contractAndBookingParser({ fileName: file, voyage: [{ catalogId: '1', recordId: '1' }] })
 
 // console.log(JSON.stringify(t))
 
@@ -169,7 +169,8 @@ export function contractAndBookingParser(params: Params) {
 				containersCount: +clearString(m.D),
 				type: clearString(m.E),
 				gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
-				shipper: clearString(m.G)
+				shipper: clearString(m.G),
+				port: clearString(m.J)
 			}
 			if (result.bookingId == 'INJIAN00003419') {
 				console.log(result)
