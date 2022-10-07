@@ -44,18 +44,28 @@ module.exports = documentProcess
 
 
 
-// const testData = [
-// 	{
-// 		"id": 10643,
-// 		"title": "HUA DONG 88 INT11N88.xlsx",
-// 		"size": 15408,
-// 		"url": "http://89.108.119.30:22035/storage/1/a1b570fa-a971-4c99-8375-b78e2a293d85/HUA%C2%A0DONG%C2%A088%C2%A0INT11N88.xlsx",
-// 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-// 		"metadata": null,
-// 		"docType": "contract"
-// 	}
-// ]
+const testData = [
+	{
+		"id": 10941,
+		"title": "testContracts.xlsx",
+		"size": 9738,
+		"url": "http://89.108.119.30:22035/storage/1/713a6a5f-e48b-47fb-943c-90c3d7813e15/testContracts.xlsx",
+		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		"metadata": null,
+		"docType": "contract"
+	},
+	{
+		"id": 10944,
+		"title": "testContracts2.xlsx",
+		"size": 9966,
+		"url": "http://89.108.119.30:22035/storage/1/475f2321-8bb1-4cee-ba49-1e98cb3bde85/testContracts2.xlsx",
+		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		"metadata": null,
+		"docType": "contract"
+	}
+]
 
-// 	; (async () => {
-// 		await documentProcess(testData)
-// 	})()
+
+	; (async () => {
+		await documentProcess(testData)
+	})()
