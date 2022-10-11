@@ -155,7 +155,11 @@ export function contractAndBookingParser(params: Params) {
 	let collect
 	collect = bigSheet
 		.filter(f => {
-			return f.C && f.C.match(/INJIAN\d+/)
+			try {
+			return f.C && f.C.toString().match(/INJIAN\d+/)
+		} catch( e ) {
+			console.log( f )
+		}
 		})
 		.map(m => {
 			let result = {
