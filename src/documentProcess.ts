@@ -46,21 +46,25 @@ module.exports = documentProcess
 
 const testData = [
 	{
-		"id": 10602,
-		"title": "INTECO-NINGBO HUA DONG 88 INT09N88.xlsx",
-		"size": 29359,
-		"url": "http://89.108.119.30:22020/storage/1/779fb2df-065d-498f-8f4e-7ae7d17c4f8b/INTECO-NINGBO%20HUA%20DONG%2088%20INT09N88.xlsx",
+		"id": 10941,
+		"title": "testContracts.xlsx",
+		"size": 9738,
+		"url": "http://89.108.119.30:22035/storage/1/713a6a5f-e48b-47fb-943c-90c3d7813e15/testContracts.xlsx",
 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 		"metadata": null,
-		"docType": "contract",
-		"voyage": [
-			{
-				"catalogId": "79",
-				"recordId": "92"
-			}
-		]
+		"docType": "contract"
+	},
+	{
+		"id": 10944,
+		"title": "testContracts2.xlsx",
+		"size": 9966,
+		"url": "http://89.108.119.30:22035/storage/1/475f2321-8bb1-4cee-ba49-1e98cb3bde85/testContracts2.xlsx",
+		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		"metadata": null,
+		"docType": "contract"
 	}
 ]
+
 
 	; (async () => {
 		await documentProcess(testData)

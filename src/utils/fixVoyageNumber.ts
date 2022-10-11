@@ -1,7 +1,7 @@
 import { Counter } from './counter'
 
 
-export default function (voyageNumberString: string) {
+export default function (voyageNumberString: string): string {
 	let regVoyage = /INT.*[a-zA-Z0-9]+/gm
 	let regNumber = /(\d+)/
 	let voyageNum

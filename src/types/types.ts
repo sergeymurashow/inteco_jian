@@ -11,7 +11,7 @@ export type Params = {
 
 export interface Booking {
 	bookingId: string,
-	voyageNumber?: Array<record>,
+	voyageNumber?: string,
 	pkgs?: string,
 	packType?: string,
 	gWeight?: string,

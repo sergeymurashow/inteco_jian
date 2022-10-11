@@ -10,16 +10,12 @@ import { mergeSheets } from './utils/merge'
 import { transcribeContractNumber } from './utils/transcribeContractNumber'
 import fixVoyageNumber from './utils/fixVoyageNumber'
 
-/*TODO 
-— Create object structure
-— Group values by booking ID
-*/
 
-const filesDir = path.resolve('files', 'new test')
-const file = path.resolve(filesDir, 'MANIFEST_rf.xls')
+// const filesDir = path.resolve('files', '11N88')
+// const file = path.resolve(filesDir, 'HUA DONG 88 INT11N88.xlsx')
 // const fileBody = fs.readFileSync(file, 'utf-8')
 
-// let t = manifestParser({ fileName: file, voyage: [{ catalogId: '1', recordId: '1' }] })
+// let t = contractAndBookingParser({ fileName: file, voyage: [{ catalogId: '1', recordId: '1' }] })
 
 // console.log(JSON.stringify(t))
 
@@ -56,7 +52,7 @@ function getContainer(data: Obj): Container {
 	return resp
 }
 
-function getBooking(data: Obj, voyageNumber: Array<record>): Booking {
+function getBooking(data: Obj, voyageNumber: string): Booking {
 	try{
 		data.L = data.L.toString().replace(/[^\d]/g, '')
 	} catch ( e ) {
@@ -115,7 +111,7 @@ export function manifestParser(params: Params) {
 	let bigSheet = [].concat(...parsedSheet)
 
 
-	let voyage: Array<record> = params.voyage//fixVoyageNumber(bigSheet[1].B)
+	let voyage = fixVoyageNumber(bigSheet[1].C)
 
 	let collect = {}
 	let tmp: string
@@ -154,7 +150,7 @@ export function contractAndBookingParser(params: Params) {
 	let parsedSheet = _.toArray(sheet).map(m => parseSheet(m))
 	let bigSheet = [].concat(...parsedSheet)
 
-	let voyage: Array<record> = params.voyage//fixVoyageNumber(bigSheet[1].H)
+	// let voyage = fixVoyageNumber(bigSheet[1].H)
 
 	let collect
 	collect = bigSheet
@@ -165,11 +161,12 @@ export function contractAndBookingParser(params: Params) {
 			let result = {
 				bookingId: clearString(m.C),
 				contract: transcribeContractNumber(clearString(m.B)).answer,
-				voyageNumber: voyage,
+				voyageNumber: fixVoyageNumber(m.H),
 				containersCount: +clearString(m.D),
 				type: clearString(m.E),
 				gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
-				shipper: clearString(m.G)
+				shipper: clearString(m.G),
+				port: clearString(m.J)
 			}
 			if (result.bookingId == 'INJIAN00003419') {
 				console.log(result)
