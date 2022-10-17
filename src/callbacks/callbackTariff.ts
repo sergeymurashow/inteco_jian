@@ -9,7 +9,7 @@ const url = `${process.env.URL}${process.env.CALLBACKTARIFF}`
 export async function sendTariff ( data ) {
 	
 	await Axios( { url, method: 'POST', data } ).then((resp) => {
-		console.log( resp )
+		console.log( `Tariff sended to ${url}` )
 	}).catch( err => {
 		console.error( JSON.stringify(err, null, 1) )
 	})

@@ -13,5 +13,10 @@ const app = express();
 const port = process.env.PORT;
 app.use('/api', router)
 
-app.listen(port, () => console.log(`Running on port ${port}`));
+const startMessage = `Running on port ${port}
+URL: ${process.env.URL}
+CALLBACKURL: ${process.env.CALLBACKURL} 
+CALLBACKTARIFF: ${process.env.CALLBACKTARIFF} `
+
+app.listen(port, () => console.log(startMessage));
 
