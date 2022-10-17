@@ -5,7 +5,7 @@ import {router} from './routes/router'
 import bodyParser from 'body-parser';
 
 
-const configPath = {path:'config.env'}
+const configPath = {path:'config/config.env'}
 dotenv.config(configPath)
 
 

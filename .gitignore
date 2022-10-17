@@ -7,3 +7,5 @@ dist
 default.json
 config*
 output.json
+*.xls
+*.xlsx

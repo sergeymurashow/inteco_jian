@@ -1,14 +1,12 @@
 import dotenv from 'dotenv'
 import Axios from 'axios'
 
-type DocTypesList = 'manifest' | 'declaration' | 'contracts'
-
 const configPath = {path:'config/config.env'}
 dotenv.config(configPath)
 
-const url = `${process.env.URL}${process.env.CALLBACKURL}`
+const url = `${process.env.URL}${process.env.CALLBACKTARIFF}`
 
-export async function sendParsed ( data ) {
+export async function sendTariff ( data ) {
 	
 	await Axios( { url, method: 'POST', data } ).then((resp) => {
 		console.log( resp )

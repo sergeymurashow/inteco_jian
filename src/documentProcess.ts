@@ -35,7 +35,8 @@ async function documentProcess(data) {
 	}
 
 	let mergedTable = mergeByBookingId(result.booking, result.contract)
-	sendParsed(mergedTable)
+	console.log( mergedTable.length )
+	// sendParsed(mergedTable)
 	let tt
 }
 
