@@ -4,23 +4,26 @@ import { Obj } from "src/types/types"
 const moment = require('moment')
 const _: LoDashStatic = require('lodash')
 
-import { data } from "./data"
-import { contractData } from "./contractData";
-import { tariffList } from "./tariffList"
+import { data } from "./testData/data"
+import { contractData } from "./testData/contractData";
+import { tariffList as tariffInput } from "./testData/tariffList"
 
 import { VoyageData } from "./VoyageData"
 
-import { ContainerData, ContainersParse } from "./ContainerData"
+import { ContainersParse } from "./ContainerData"
 import { Tariff } from "./Tariff"
 import { sendTariff } from "../callbacks/callbackTariff"
+import { Discount } from "./Discount"
 
-const voyageData = data.values
+const voyageData = data
 const tariff = contractData.values[11]
 const containersData = voyageData[144]
 
-// getTariff({ voyageData, containersData, tariff })
+// let TEST = getTariff({ voyageData, tariffInput, contractData })
+// let t
 
-export function getTariff({ voyageData, tariffInput }) {
+
+export function getTariff({ voyageData, tariffInput, contractData }) {
 
 	let voyageFields = voyageData.values
 	let voyageParsed = new VoyageData(
@@ -31,6 +34,9 @@ export function getTariff({ voyageData, tariffInput }) {
 		}
 	).data
 
+	let contractDiscounts = contractData.values[11]
+	let discount = new Discount( contractDiscounts )
+
 	let tariff = new Tariff()
 	tariff.tariffList = tariffInput
 
@@ -40,9 +46,16 @@ export function getTariff({ voyageData, tariffInput }) {
 	let resp: Obj = {}
 	resp.containers = containersParsed.map(m => {
 		let tariffForContainer = tariff.find(m)
-		if ( !tariffForContainer ) throw new Error(`I don't find tariff :(`) 
-		let ans = Object.assign({}, m, { cost: tariffForContainer.cost })
-		return ans
+		if ( !tariffForContainer ) throw new Error(`I don't find tariff :(`)
+		let containerDiscount = discount.find( m )
+
+		let ans = { 
+			price: tariffForContainer.price,
+			discount: containerDiscount.discount,
+			cost: tariffForContainer.price - containerDiscount.discount
+		}
+
+		return Object.assign({}, m, ans )
 	})
 
 	resp.voyage = {

@@ -1,5 +1,5 @@
 import { Obj } from "src/types/types";
-import { tariffList } from "./tariffList";
+import { tariffList } from "./testData/tariffList";
 
 const optionsValues = {
 	socCoc: {
@@ -15,7 +15,7 @@ const optionsValues = {
 export type Option = {
 	socCoc: string
 	type: string
-	cost: number
+	price: number
 }
 
 export interface Tariff {
@@ -33,7 +33,7 @@ export interface TariffParsed {
 	direction: string
 	socCoc: string
 	type: string
-	cost: number
+	price: number
 }
 
 export class TariffParser {
@@ -53,7 +53,7 @@ export class TariffParser {
 		return {
 			socCoc: optionsValues.socCoc[recordValues[7]],
 			type: optionsValues.type[recordValues[6]],
-			cost: recordValues[8]
+			price: recordValues[8]
 		}
 	}
 
@@ -65,7 +65,7 @@ export class TariffParser {
 				direction,
 				socCoc: prettyOptions.socCoc,
 				type: prettyOptions.type,
-				cost: prettyOptions.cost
+				price: prettyOptions.price
 			}
 		})
 		this.parsedData = this.parsedData.concat(

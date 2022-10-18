@@ -1,52 +1,106 @@
-// import { Obj } from "src/types/types";
-// import { tariffList } from "./tarifList";
-
-// export interface Tarif{
-// 	port: string
-// 	direction: string
-// 	discount: number
-// 	socCoc: string
-// 	type: string
-// }
-
-// export class Tarif {
-// 	constructor({ socCoc, port, direction, type, discount }) {
-// 		this.socCoc = socCoc
-// 		this.type = type
-// 		this.discount = discount
-// 		this.port = port[0].recordTitle
-// 		this.direction = direction
-// 	}
-// }
-
-// export interface TarifParse {
-// 	tarifFields: Array<Obj>
-// }
-
-// export class TarifParse {
-// 	constructor(tarifFields) {
-// 		this.tarifFields = tarifFields
-// 	}
-
-// 	get parsed(): Array<Tarif> {
-// 		return this.tarifFields.map(m => {
-// 			let {values} = m
-// 			return new Tarif({
-// 				socCoc: values['6'],
-// 				port: values['3'],
-// 				direction: values['11'],
-// 				type: values['5'],
-// 				discount: values['1']
-// 			})
-// 		})
-// 	}
-// }
+import { Obj } from "src/types/types";
+// import { contractData } from "./testData/contractData";
 
 
 
+const discountValues = {
+	socCoc: {
+		'1': 'SOC',
+		'2': 'COC'
+	},
+	type: {
+		'1': '20',
+		'2': '40'
+	},
+	direction: {
+		'1': 'IMPORT',
+		'2': 'EXPORT'
+	}
+}
 
-// let t = new TariffParse( tariffList )
-// let q = t.parsed
+type DiscountValuesKeys = 'socCoc' | 'type' | 'direction'
+
+export interface DiscountParse {
+	port: string[]
+	direction: string[]
+	discount: number
+	socCoc: string[]
+	type: string[]
+}
+
+export class DiscountParse {
+	constructor({ socCoc, port, direction, type, discount }) {
+		this.socCoc = socCoc
+		this.type = type
+		this.discount = discount
+		this.port = port
+		this.direction = direction
+	}
+}
+
+
+function getnames(option: string[], key: DiscountValuesKeys): Obj[] {
+	return option.map(m => discountValues[key][m])
+}
+
+
+export interface Discount {
+	discountFields: Array<Obj>
+	parsedFields: Array<DiscountParse>
+}
+
+export class Discount {
+	constructor(discountFields) {
+		this.discountFields = discountFields
+		this.parsedFields = this.discountFields.length ?
+			this.parser(this.discountFields) :
+			null
+	}
+
+	private parser(discountFields): Array<DiscountParse> {
+		return discountFields.map(m => {
+			let { recordValues } = m
+			return new DiscountParse({
+				socCoc: getnames(recordValues[6], 'socCoc'),
+				port: recordValues[3].map(m => m.recordTitle),
+				direction: getnames(recordValues[11], 'direction'),
+				type: getnames(recordValues[5], 'type'),
+				discount: recordValues[1]
+			})
+		})
+	}
+
+	private getFromArray(array: string[], value: string) {
+		let chk = array.length ? array.includes(value) : true
+		return chk
+	}
+
+	find({ port, direction, socCoc, type }) {
+		if ( !this.parsedFields ) return { discount: 0 }
+		return this.parsedFields.find(fi => {
+			let chk = this.getFromArray(fi.port, port) &&
+				this.getFromArray(fi.direction, direction) &&
+				this.getFromArray(fi.socCoc, socCoc) &&
+				this.getFromArray(fi.type, type)
+			return chk
+		})
+	}
+}
+
+
+
+
+// let t = new Discount(contractData)
+
+// let p = t.parsedFields
+
+// let q = t.find({
+// 	port: 'QINGDAO',
+// 	socCoc: 'SOC',
+// 	direction: 'IMPORT',
+// 	type: '20'
+// })
+
 
 
 
