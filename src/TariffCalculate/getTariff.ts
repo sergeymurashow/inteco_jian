@@ -34,9 +34,18 @@ export function getTariff({ voyageData, tariffInput, contractData }) {
 		}
 	).data
 
-	let contractDiscounts = contractData.values[11]
-	let discount = new Discount( contractDiscounts )
+	let discount = {
+		find({ port, direction, socCoc, type }) {
+			return { discount: 0 }
+		}
+	}
+	let contractDiscounts
 
+	if( contractData ){
+		contractDiscounts = contractData.values[11]
+		discount = new Discount(contractDiscounts)
+	}
+	
 	let tariff = new Tariff()
 	tariff.tariffList = tariffInput
 
@@ -46,16 +55,16 @@ export function getTariff({ voyageData, tariffInput, contractData }) {
 	let resp: Obj = {}
 	resp.containers = containersParsed.map(m => {
 		let tariffForContainer = tariff.find(m)
-		if ( !tariffForContainer ) throw new Error(`I don't find tariff :(`)
-		let containerDiscount = discount.find( m )
+		if (!tariffForContainer) throw new Error(`I don't find tariff :(`)
+		let containerDiscount = discount.find(m)
 
-		let ans = { 
+		let ans = {
 			price: tariffForContainer.price,
 			discount: containerDiscount.discount,
 			cost: tariffForContainer.price - containerDiscount.discount
 		}
 
-		return Object.assign({}, m, ans )
+		return Object.assign({}, m, ans)
 	})
 
 	resp.voyage = {
