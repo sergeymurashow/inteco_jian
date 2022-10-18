@@ -4,9 +4,6 @@ import { Obj } from "src/types/types"
 const moment = require('moment')
 const _: LoDashStatic = require('lodash')
 
-import { data } from "./testData/data"
-import { contractData } from "./testData/contractData";
-import { tariffList as tariffInput } from "./testData/tariffList"
 
 import { VoyageData } from "./VoyageData"
 
@@ -15,9 +12,12 @@ import { Tariff } from "./Tariff"
 import { sendTariff } from "../callbacks/callbackTariff"
 import { Discount } from "./Discount"
 
-const voyageData = data
-const tariff = contractData.values[11]
-const containersData = voyageData[144]
+// import { data } from "./testData/data"
+// import { contractData } from "./testData/contractData";
+// import { tariffList as tariffInput } from "./testData/tariffList"
+// const voyageData = data
+// const tariff = contractData.values[11]
+// const containersData = voyageData[144]
 
 // let TEST = getTariff({ voyageData, tariffInput, contractData })
 // let t

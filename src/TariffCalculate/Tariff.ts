@@ -1,5 +1,4 @@
 import { Obj } from "src/types/types";
-import { tariffList } from "./testData/tariffList";
 
 const optionsValues = {
 	socCoc: {
