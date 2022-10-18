@@ -74,6 +74,7 @@ function getBooking(data: Obj, voyageNumber: string): Booking {
 		hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
 		freight: data.U,
 		isManifest: [1],
+		docType: 'manifest',
 		containers: [
 			getContainer(data)
 		]
@@ -170,7 +171,8 @@ export function contractAndBookingParser(params: Params) {
 				type: clearString(m.E),
 				gWeight: clearString(m.F) ? clearString(m.F).replace(/,/, '.') : null,
 				shipper: clearString(m.G),
-				port: clearString(m.J)
+				port: clearString(m.J),
+				docType: 'contract'
 			}
 			if (result.bookingId == 'INJIAN00003419') {
 				console.log(result)

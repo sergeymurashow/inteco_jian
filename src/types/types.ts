@@ -26,7 +26,8 @@ export interface Booking {
 	owner?: string,
 	type?: string,
 	freight?: string,
-	isManifest?: Array<number>
+	isManifest?: Array<number>,
+	docType: string
 }
 
 export interface BookingAccounting extends Booking {
