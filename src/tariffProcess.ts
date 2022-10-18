@@ -10,8 +10,8 @@ import Fs from 'fs'
 import { getTariff } from './TariffCalculate/getTariff'
 
 
-async function tariffProcess( {voyageData, tariffInput} ) {
-	await getTariff( {voyageData, tariffInput} )
+async function tariffProcess( {voyageData, tariffInput, contractData} ) {
+	await getTariff( {voyageData, tariffInput, contractData} )
 }
 
 module.exports = tariffProcess
