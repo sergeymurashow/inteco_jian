@@ -19,6 +19,9 @@ import { Discount } from "./Discount"
 // const tariff = contractData.values[11]
 // const containersData = voyageData[144]
 
+// let TEST = new Tariff()
+// TEST.tariffList = tariffInput
+
 // let TEST = getTariff({ voyageData, tariffInput, contractData })
 // let t
 
