@@ -50,8 +50,8 @@ export class TariffParser {
 	private prettyOption(option): Option {
 		let recordValues = option.recordValues
 		return {
-			socCoc: optionsValues.socCoc[recordValues[7]],
-			type: optionsValues.type[recordValues[6]],
+			socCoc: optionsValues.socCoc[recordValues[6]],
+			type: optionsValues.type[recordValues[7]],
 			price: recordValues[8]
 		}
 	}
