@@ -1,23 +1,14 @@
 import path from 'path'
 import fs from 'fs'
 import _ from 'lodash'
-import { sendParsed } from './callbacks/callbackParsedDocs'
+import { sendParsed } from '../callbacks/callbackParsedDocs'
 
 import xls from 'xlsx'
 import { readFile } from 'xlsx'
-import { Booking, Contract, Obj, Container, Params, record } from './types/types'
-import { mergeSheets } from './utils/merge'
-import { transcribeContractNumber } from './utils/transcribeContractNumber'
-import fixVoyageNumber from './utils/fixVoyageNumber'
-
-
-// const filesDir = path.resolve('files', '11N88')
-// const file = path.resolve(filesDir, 'HUA DONG 88 INT11N88.xlsx')
-// const fileBody = fs.readFileSync(file, 'utf-8')
-
-// let t = contractAndBookingParser({ fileName: file, voyage: [{ catalogId: '1', recordId: '1' }] })
-
-// console.log(JSON.stringify(t))
+import { Booking, Contract, Obj, Container, Params, record } from '../types/types'
+import { mergeSheets } from './merge'
+import { transcribeContractNumber } from './transcribeContractNumber'
+import fixVoyageNumber from './fixVoyageNumber'
 
 function getAddr(key: string) {
 	return {

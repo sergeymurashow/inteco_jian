@@ -1,6 +1,6 @@
-import answerTemplate from "./answerTemplate"
+import answerTemplate from "../../../utils/answerTemplate"
 
-export function transcribeContractNumber(contractNumber: string): any {
+export default function transcribeContractNumber(contractNumber: string): any {
 	if (!contractNumber) return answerTemplate({ err: 'Empty contract number!' })
 	const contractTypes = {
 		'transit': '00-INL-00-0000'

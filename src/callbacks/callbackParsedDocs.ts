@@ -16,5 +16,3 @@ export async function sendParsed ( data ) {
 		console.error( JSON.stringify(err, null, 1) )
 	})
 }
-
-// sendParsed( 'manifest', {test: 'test'})

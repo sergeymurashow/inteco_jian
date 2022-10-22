@@ -1,7 +1,7 @@
 import Fs from 'fs'
 import Path from 'path'
 import Axios from 'axios'
-import { createCatalogs } from './createCatalogs'
+import { createCatalogs } from '../utils/createCatalogs'
 
 type File = {
 	id: number

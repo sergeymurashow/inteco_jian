@@ -1,4 +1,4 @@
-import { Counter } from './counter'
+import { Counter } from '../utils/counter'
 
 
 export default function (voyageNumberString: string): string {
