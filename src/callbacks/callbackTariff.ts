@@ -1,10 +1,11 @@
 import dotenv from 'dotenv'
 import Axios from 'axios'
+import GetConfig from 'GetConfig'
 
-const configPath = {path:'config/config.env'}
-dotenv.config(configPath)
+const { bpiumUrl, receiver, callbackTariff} = GetConfig
 
-const url = `${process.env.URL}${process.env.CALLBACKTARIFF}`
+
+const url = `${bpiumUrl}${receiver}${callbackTariff}`
 
 export async function sendTariff ( data ) {
 	
@@ -14,5 +15,3 @@ export async function sendTariff ( data ) {
 		console.error( JSON.stringify(err, null, 1) )
 	})
 }
-
-// sendParsed( 'manifest', {test: 'test'})

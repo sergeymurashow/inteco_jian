@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "npm run build",
     "build": "tsc",
-    "start": "node ./dist/index.js",
-    "mon": "nodemon ./index.ts"
+    "start": "node ../dist/index.js",
+    "mon": "nodemon ../index.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +24,6 @@
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "bp-api": "^0.5.2",
-    "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "dayjs": "^1.11.3",
     "dotenv": "^16.0.1",
@@ -41,8 +39,7 @@
     "nodemailer": "^6.7.5",
     "read-excel-file": "^5.3.5",
     "reflect-metadata": "^0.1.13",
-    "routing-controllers": "^0.9.0",
-    "xls-parser": "^3.1.0",
+    "xls-parser": "^1.0.10",
     "xlsjs": "^1.0.1",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.9/xlsx-0.18.9.tgz"
   }

@@ -1,7 +1,4 @@
 //* NPM modules
-import path from 'path'
-import fs from 'fs'
-import xls from 'xlsx'
 import _ from 'lodash'
 //*
 

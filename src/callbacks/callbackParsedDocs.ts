@@ -1,12 +1,11 @@
 import dotenv from 'dotenv'
 import Axios from 'axios'
+import GetConfig from 'GetConfig'
 
-type DocTypesList = 'manifest' | 'declaration' | 'contracts'
+const { bpiumUrl, receiver, callbackParsed} = GetConfig
 
-const configPath = {path:'config/config.env'}
-dotenv.config(configPath)
 
-const url = `${process.env.URL}${process.env.CALLBACKURL}`
+const url = `${bpiumUrl}${receiver}${callbackParsed}`
 
 export async function sendParsed ( data ) {
 	

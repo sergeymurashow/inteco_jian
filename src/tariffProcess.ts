@@ -1,5 +1,4 @@
 import { downloadFiles } from './utils/downloadFiles'
-import { manifestParser, contractAndBookingParser } from './DocsParse/parseExcel'
 import { createCatalogs } from './utils/createCatalogs'
 import { mergeByBookingId } from './mergeByBookingId'
 import { sendParsed } from './callbacks/callbackParsedDocs'

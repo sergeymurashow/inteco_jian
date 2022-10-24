@@ -1,6 +1,5 @@
 import _ from 'lodash'
 
-
 import DocumentsParser from "./DocumentsParser"
 import { Booking, matrix, ParseError, Container } from '../types/types'
 
