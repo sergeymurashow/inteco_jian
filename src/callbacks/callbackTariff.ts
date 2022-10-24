@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import Axios from 'axios'
-import GetConfig from 'GetConfig'
+import GetConfig from '../../GetConfig'
 
 const { bpiumUrl, receiver, callbackTariff} = GetConfig
 
