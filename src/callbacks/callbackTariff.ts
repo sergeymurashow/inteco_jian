@@ -2,10 +2,10 @@ import dotenv from 'dotenv'
 import Axios from 'axios'
 import GetConfig from '../../GetConfig'
 
-const { bpiumUrl, receiver, callbackTariff} = GetConfig
+const { protocol, bpiumUrl, receiver, callbackTariff} = GetConfig
 
 
-const url = `${bpiumUrl}${receiver}${callbackTariff}`
+const url = `${protocol}://${bpiumUrl}${receiver}${callbackTariff}`
 
 export async function sendTariff ( data ) {
 	

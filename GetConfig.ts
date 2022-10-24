@@ -6,6 +6,7 @@ console.log( configPath )
 
 interface GetConfig{
 	port: string
+	protocol: string
 	bpiumUrl: string
 	receiver: string
 	callbackParsed: string
@@ -16,6 +17,7 @@ class GetConfig{
 	constructor(configPath) {
 		dotenv.config({path: configPath})
 		this.port = process.env.PORT
+		this.protocol = process.env.PROTOCOL
 		this.bpiumUrl = process.env.BPIUM_URL
 		this.receiver = process.env.RECEIVER
 		this.callbackParsed = process.env.CALLBACK_PARSED

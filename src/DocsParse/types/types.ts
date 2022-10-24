@@ -35,7 +35,8 @@ export interface Booking {
 	type?: string,
 	freight?: string,
 	isManifest?: Array<number>,
-	docType: string
+	docType: string,
+	filename?: string
 }
 
 export interface BookingAccounting extends Booking {

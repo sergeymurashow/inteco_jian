@@ -24,10 +24,10 @@ export default class {
 	get (): (Booking | ParseError)[] {
 		switch (this.docType) {
 			case 'manifest':
-				return new ManifestParser( this.fileName ).parsed
+				return new ManifestParser( this.fileName ).parsed.map( m => Object.assign(m, {fileName: this.fileName}))
 				break;
 			case 'contract':
-				return new ReportParser( this.fileName ).parsed
+				return new ReportParser( this.fileName ).parsed.map( m => Object.assign(m, {fileName: this.fileName}))
 				break;
 		}
 	}

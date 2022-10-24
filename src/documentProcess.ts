@@ -18,14 +18,14 @@ async function documentProcess(data) {
 
 	}
 
-	let result: Obj = {}
+	let result: Obj = []
 	for (let i of data) {
-		result[i.id] = new ParseExcel(i.fileName, i.docType).get()
+		result = result.concat( new ParseExcel(i.fileName, i.docType).get() )
 	}
 
 	let t
 
-	// utils.sendParsed(result)
+	utils.sendParsed(result)
 }
 
 module.exports = documentProcess
