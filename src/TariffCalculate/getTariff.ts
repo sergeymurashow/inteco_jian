@@ -1,7 +1,7 @@
 import { LoDashStatic } from "lodash"
 import { Obj } from "src/types/types"
 
-const moment = require('moment')
+// const moment = require('moment')
 const _: LoDashStatic = require('lodash')
 
 

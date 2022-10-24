@@ -76,14 +76,16 @@ export class Discount {
 	}
 
 	find({ port, direction, socCoc, type }) {
-		if ( !this.parsedFields ) return { discount: 0 }
-		return this.parsedFields.find(fi => {
-			let chk = this.getFromArray(fi.port, port) &&
+		if (!this.parsedFields) return { discount: 0 }
+		const findedDiscount = this.parsedFields.find(fi => {
+			let chk =
+				this.getFromArray(fi.port, port) &&
 				this.getFromArray(fi.direction, direction) &&
 				this.getFromArray(fi.socCoc, socCoc) &&
 				this.getFromArray(fi.type, type)
 			return chk
 		})
+		return findedDiscount ? findedDiscount : { discount: 0 }
 	}
 }
 
