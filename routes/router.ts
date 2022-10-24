@@ -12,7 +12,7 @@ router.route('/parse')
 	})
 	.post(jsonParser, (req, res) => {
 		processRunner({
-			processName: 'documentProcess',
+			processName: 'DocumentProcess',
 			body: req.body
 		})
 		res.send({ status: 200 })

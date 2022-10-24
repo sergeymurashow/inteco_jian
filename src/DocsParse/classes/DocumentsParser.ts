@@ -1,9 +1,8 @@
 import xls from 'xlsx'
 import _ from 'lodash'
 
-
-import { Obj } from 'src/types/types'
-import utils from '../utils/index'
+import { Obj } from '../types/index'
+import utils from '../utils'
 
 export default interface DocumentsParser {
 	constructor(

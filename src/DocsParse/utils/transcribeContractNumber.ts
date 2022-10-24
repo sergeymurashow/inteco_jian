@@ -1,4 +1,4 @@
-import answerTemplate from "../../../utils/answerTemplate"
+import answerTemplate from "../../utils/answerTemplate"
 
 export default function transcribeContractNumber(contractNumber: string): any {
 	if (!contractNumber) return answerTemplate({ err: 'Empty contract number!' })

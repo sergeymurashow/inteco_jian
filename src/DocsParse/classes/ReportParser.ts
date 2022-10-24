@@ -7,12 +7,12 @@ import { Booking, matrix, ParseError, Container } from '../types/types'
 import utils from '../utils'
 
 //* For Test
-import Path from 'path'
-import fs from 'fs'
-import { Console } from 'console'
+// import Path from 'path'
+// import fs from 'fs'
+// import { Console } from 'console'
 
-let path = Path.resolve('src', 'DocsParse', 'refactor', 'testData').toString()
-let file = Path.resolve(path, 'REPORT_2.xlsx').toString()
+// let path = Path.resolve('src', 'DocsParse', 'refactor', 'testData').toString()
+// let file = Path.resolve(path, 'REPORT_2.xlsx').toString()
 //*
 
 
@@ -31,11 +31,12 @@ export default class ReportParser extends DocumentsParser {
 			})
 			.map(m => getBooking(m))
 			.filter(f => f.bookingId)
+			console.log(collect)
 		return _.sortBy(collect, 'bookingId')
 	}
 }
 
-let t = new ReportParser( file ).parsed
+// let t = new ReportParser( file ).parsed
 
 function getBooking(data: matrix): Booking | ParseError {
 	let result = () => {
