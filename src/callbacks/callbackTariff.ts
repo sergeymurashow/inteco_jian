@@ -4,11 +4,10 @@ import GetConfig from '../../GetConfig'
 
 const { protocol, bpiumUrl, receiver, callbackTariff} = GetConfig
 
-
 const url = `${protocol}://${bpiumUrl}${receiver}${callbackTariff}`
 
 export async function sendTariff ( data ) {
-	
+	console.log( `Callback tariff URL: ${url}` )
 	await Axios( { url, method: 'POST', data } ).then((resp) => {
 		console.log( `Tariff sended to ${url}` )
 	}).catch( err => {

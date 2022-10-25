@@ -23,8 +23,6 @@ async function documentProcess(data) {
 		result = result.concat( new ParseExcel(i.fileName, i.docType).get() )
 	}
 
-	let t
-
 	utils.sendParsed(result)
 }
 

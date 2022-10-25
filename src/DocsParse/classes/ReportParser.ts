@@ -30,7 +30,6 @@ export default class ReportParser extends DocumentsParser {
 			})
 			.map(m => getBooking(m))
 			.filter(f => f.bookingId)
-			console.log(collect)
 		return _.sortBy(collect, 'bookingId')
 	}
 }

@@ -8,6 +8,7 @@ const { protocol, bpiumUrl, receiver, callbackParsed} = GetConfig
 const url = `${protocol}://${bpiumUrl}${receiver}${callbackParsed}`
 
 export async function sendParsed ( data ) {
+	console.log( `Callback parsed URL: ${url}` )
 	await Axios( { url, method: 'POST', data } ).then((resp) => {
 		console.log( `Bookings sended to ${url}` )
 	}).catch( err => {
