@@ -10,7 +10,9 @@ export default function transcribeContractNumber(contractNumber: string): any {
 	if (!checkType) {
 		try {
 
-			return contractNumber.length ? contractNumber.toUpperCase() : null
+			return contractNumber.length ? 
+			answerTemplate( { answer: contractNumber.toUpperCase() }) : 
+			null
 
 		} catch (e) {
 
@@ -36,6 +38,6 @@ function replacer(arr: Array<any>): string {
 
 
 // let t = transcribeContractNumber( '№04INL-20-2022' )
-let t = transcribeContractNumber( 'Transit' )
+// let t = transcribeContractNumber( 'Transit' )
 
-console.log( t )
+// console.log( t )
