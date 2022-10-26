@@ -9,16 +9,16 @@ export default function transcribeContractNumber(contractNumber: string): any {
 	const checkType = reg.test(contractNumber)
 	if (!checkType) {
 		try {
-			if ( contractTypes[contractNumber] ) {
-				return contractTypes[contractNumber] 
-			} else {
-				return answerTemplate( {err: {msg: 'None'}} )
-			}
+
+			return contractNumber.length ? contractNumber.toUpperCase() : null
+
 		} catch (e) {
-			return answerTemplate({ err: {msg: 'Wrong type!', desc: e}  })
+
+			return answerTemplate({ err: { msg: 'Wrong type!', desc: e } })
+
 		}
 	}
-	let matchedNumber = contractNumber.match( reg )
+	let matchedNumber = contractNumber.match(reg)
 	return answerTemplate({ answer: replacer(matchedNumber) })
 
 	// switch (checkType) {
@@ -36,5 +36,6 @@ function replacer(arr: Array<any>): string {
 
 
 // let t = transcribeContractNumber( '№04INL-20-2022' )
+let t = transcribeContractNumber( 'Transit' )
 
-// console.log( t )
+console.log( t )
