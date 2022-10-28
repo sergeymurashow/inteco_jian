@@ -26,7 +26,7 @@ export class VoyageData {
 			}
 
 
-			return this.points[ fieldNumber ][0].recordValues[14][0].recordTitle
+			return this.points[ fieldNumber ][0].recordValues[2][0].recordTitle
 		})()
 	}
 
