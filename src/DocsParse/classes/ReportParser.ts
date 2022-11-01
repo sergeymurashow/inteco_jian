@@ -5,6 +5,8 @@ import { Booking, matrix, ParseError, Container } from '../types/types'
 
 import utils from '../utils'
 
+import * as prettyData from './prettyData'
+
 //* For Test
 // import Path from 'path'
 // import fs from 'fs'
@@ -40,11 +42,11 @@ function getBooking(data: matrix): Booking | ParseError {
 	let result = () => {
 		return {
 			bookingId: utils.clearString(data.C),
-			contract: utils.transcribeContractNumber(utils.clearString(data.B)).answer,
+			contract: prettyData.contract(data.B),
 			voyageNumber: utils.fixVoyageNumber(data.H),
 			containersCount: +utils.clearString(data.D),
 			type: utils.clearString(data.E),
-			gWeight: utils.clearString(data.F) ? utils.clearString(data.F).replace(/,/, '.') : null,
+			gWeight: prettyData.gWeight(data.F),
 			shipper: utils.clearString(data.G),
 			port: utils.clearString(data.J),
 			freight: utils.clearString(data.L),

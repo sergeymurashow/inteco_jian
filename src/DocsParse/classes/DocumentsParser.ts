@@ -36,6 +36,7 @@ export default class DocumentsParser {
 		} )
 		let parsedSheet = _.toArray(sheet).map(m => this.parseSheet(m))
 		this.bigSheet = [].concat(...parsedSheet)
+		
 	}
 
 	private parseSheet(sheet) {

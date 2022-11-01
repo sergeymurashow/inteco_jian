@@ -23,7 +23,7 @@ async function documentProcess(data) {
 		result = result.concat( new ParseExcel(i.fileName, i.docType).get() )
 	}
 
-	utils.sendParsed(result)
+	// utils.sendParsed(result)
 }
 
 module.exports = documentProcess
@@ -31,19 +31,17 @@ module.exports = documentProcess
 
 
 
-// const testData = [
-// 	{
-// 		"id": 11068,
-// 		"title": "REPORT.xlsx",
-// 		"size": 33034,
-// 		"url": "http://89.108.119.30:22020/storage/1/ed9580e5-b5fd-48c0-8f25-a7e8fb8e9834/REPORT.xlsx",
-// 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-// 		"metadata": null,
-// 		"docType": "contract"
-// 	}
-// ]
+const testData =  [
+	{
+		"id": 11225,
+		"title": "report.xlsx",
+		"url": "http://89.108.119.30:22020/storage/1/5731ca57-c2e9-41d3-8d6b-aba1ed819c6d/report.xlsx",
+		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+		"docType": "contract"
+	}
+]
 
 
-// 	; (async () => {
-// 		await documentProcess(testData)
-// 	})()
+	; (async () => {
+		await documentProcess(testData)
+	})()
