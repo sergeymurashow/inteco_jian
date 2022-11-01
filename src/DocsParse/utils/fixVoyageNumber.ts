@@ -1,7 +1,7 @@
 import Counter from "../classes/Counter"
 
 export default function (voyageNumberString: string): string {
-	let regVoyage = /[iI].*[a-zA-Z0-9]+/gm
+	let regVoyage = /(?<=\s)[iI].*[a-zA-Z0-9]+/gm
 	let regNumber = /(\d+)/
 	let voyageNum
 	try {
