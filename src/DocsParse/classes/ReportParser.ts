@@ -46,7 +46,7 @@ function getBooking(data: matrix): Booking | ParseError {
 			voyageNumber: utils.fixVoyageNumber(data.H),
 			containersCount: +utils.clearString(data.D),
 			type: utils.clearString(data.E),
-			gWeight: prettyData.gWeight(data.F),
+			gWeight: prettyData.gWeight(data.F.toString()),
 			shipper: utils.clearString(data.G),
 			port: utils.clearString(data.J),
 			freight: utils.clearString(data.L),
