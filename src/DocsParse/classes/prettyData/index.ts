@@ -1,4 +1,4 @@
-import utils from "src/DocsParse/utils"
+import utils from "../../utils"
 
 export const gWeight = ( data: string ): string => {
 	if( !data ) {
