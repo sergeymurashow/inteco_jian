@@ -19,6 +19,7 @@ export type ParseError = {
 
 export interface Booking {
 	bookingId: string,
+	applicationDate?: string,
 	voyageNumber?: string,
 	pkgs?: string,
 	packType?: string,

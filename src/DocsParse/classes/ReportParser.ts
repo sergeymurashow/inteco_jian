@@ -1,5 +1,8 @@
 import _ from 'lodash'
-
+import Counter from './Counter'
+import dayjs from 'dayjs'
+import toObject from 'dayjs/plugin/toObject'
+import objectSupport from 'dayjs/plugin/objectSupport'
 import DocumentsParser from "./DocumentsParser"
 import { Booking, matrix, ParseError, Container } from '../types/types'
 
@@ -42,6 +45,7 @@ function getBooking(data: matrix): Booking | ParseError {
 	let result = () => {
 		return {
 			bookingId: utils.clearString(data.C),
+			applicationDate: makeDate(utils.clearString(data.A)),
 			contract: prettyData.contract(data.B),
 			voyageNumber: utils.fixVoyageNumber(data.H),
 			containersCount: +utils.clearString(data.D),
@@ -125,4 +129,17 @@ function containersGenerate({ count, type, freight, owner }) {
 	return resp
 }
 
-
+function makeDate( chinaDate: string ): string {
+	let [month, day] = chinaDate.split(/[,.]/)
+	month = new Counter(2, +month).getNumber()
+	day = new Counter(2, +day).getNumber()
+	dayjs.extend(toObject)
+	dayjs.extend(objectSupport)
+	let thisDate = dayjs('01.01.2023').toObject()
+	let bookingYear = thisDate.years
+	let calc = +month - +thisDate.months
+	if( calc > 10 ) {
+		bookingYear = +bookingYear - 1
+	}
+	return dayjs().set({years: bookingYear, months: month, date: day, hour: 0, minute: 0, second: 0}).toISOString()
+}
