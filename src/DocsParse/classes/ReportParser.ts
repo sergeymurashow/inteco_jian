@@ -131,15 +131,16 @@ function containersGenerate({ count, type, freight, owner }) {
 
 function makeDate( chinaDate: string ): string {
 	let [month, day] = chinaDate.split(/[,.]/)
-	month = new Counter(2, +month).getNumber()
-	day = new Counter(2, +day).getNumber()
+	month = (+month - 1).toString()
+	// month = new Counter(2, +month).getNumber()
+	// day = new Counter(2, +day).getNumber()
 	dayjs.extend(toObject)
 	dayjs.extend(objectSupport)
-	let thisDate = dayjs('01.01.2023').toObject()
+	let thisDate = dayjs().toObject()
 	let bookingYear = thisDate.years
 	let calc = +month - +thisDate.months
 	if( calc > 10 ) {
 		bookingYear = +bookingYear - 1
 	}
-	return dayjs().set({years: bookingYear, months: month, date: day, hour: 0, minute: 0, second: 0}).toISOString()
+	return dayjs().set({years: bookingYear, months: month, date: day, hour: 11, minute: 0, second: 0}).toISOString()
 }
