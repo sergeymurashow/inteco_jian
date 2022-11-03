@@ -3,6 +3,7 @@ import Counter from './Counter'
 import dayjs from 'dayjs'
 import toObject from 'dayjs/plugin/toObject'
 import objectSupport from 'dayjs/plugin/objectSupport'
+import utc from 'dayjs/plugin/utc'
 import DocumentsParser from "./DocumentsParser"
 import { Booking, matrix, ParseError, Container } from '../types/types'
 
@@ -132,15 +133,15 @@ function containersGenerate({ count, type, freight, owner }) {
 function makeDate( chinaDate: string ): string {
 	let [month, day] = chinaDate.split(/[,.]/)
 	month = (+month - 1).toString()
-	// month = new Counter(2, +month).getNumber()
-	// day = new Counter(2, +day).getNumber()
 	dayjs.extend(toObject)
 	dayjs.extend(objectSupport)
+	dayjs.extend(utc)
 	let thisDate = dayjs().toObject()
 	let bookingYear = thisDate.years
 	let calc = +month - +thisDate.months
 	if( calc > 10 ) {
 		bookingYear = +bookingYear - 1
 	}
-	return dayjs().set({years: bookingYear, months: month, date: day, hour: 11, minute: 0, second: 0}).toISOString()
+	let dateObject = {years: bookingYear, months: month, date: day, hour: 21, minute: 0, second: 0, millisecond: 0}
+	return dayjs().set(dateObject).utc().toISOString()
 }
