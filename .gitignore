@@ -9,3 +9,5 @@ config*
 output.json
 *.xls
 *.xlsx
+Tariff*
+tariff*
