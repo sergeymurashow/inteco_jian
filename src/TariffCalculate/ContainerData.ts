@@ -27,7 +27,7 @@ export interface ContainerData extends VoyageDataOutput {
 }
 
 export interface ContainersParse {
-	containersFields: Array<Obj>
+	containersFields: Obj
 	voyageData: VoyageDataOutput
 }
 
@@ -37,18 +37,15 @@ export class ContainersParse {
 		this.voyageData = voyageData
 	}
 
-	get parsed(): Array<ContainerData> {
-		return this.containersFields.map(m => {
-			let { recordValues } = m
+	get parsed(): ContainerData {
 			return new ContainerData({
-				recordId: m.recordId,
-				catalogId: m.catalogId,
+				recordId: this.containersFields.recordId,
+				catalogId: this.containersFields.catalogId,
 				port: this.voyageData.port,
 				direction: this.voyageData.direction,
-				type: recordValues['15'][0],
-				socCoc: recordValues['17'][0]
+				type: this.containersFields.values['15'][0],
+				socCoc: this.containersFields.values['17'][0]
 			})
-		})
 	}
 }
 
