@@ -29,7 +29,7 @@ export default class ReportParser extends DocumentsParser {
 		const collect = this.bigSheet
 			.filter(f => {
 				try {
-					return f.C && f.C.toString().match(/INJIAN\d+/)
+					return f.C && f.C.toString().match(/INT\d+/)
 				} catch (e) {
 					console.log(f)
 				}
@@ -131,7 +131,7 @@ function containersGenerate({ count, type, freight, owner }) {
 }
 
 function makeDate( chinaDate: string ): string {
-	let [month, day] = chinaDate.split(/[,.]/)
+	let [day, month] = chinaDate.match(/\d+/g)
 	month = (+month - 1).toString()
 	dayjs.extend(toObject)
 	dayjs.extend(objectSupport)

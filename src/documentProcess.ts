@@ -31,19 +31,19 @@ module.exports = documentProcess
 
 
 
-const testData =  [
-	{
-		"id": 11336,
-		"title": "manifestCut.xlsx",
-		"size": 11862,
-		"url": "http://89.108.119.30:22020/storage/1/30dc4ee0-4099-409b-a278-4668c2d9deb4/manifestCut.xlsx",
-		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-		"metadata": null,
-		"docType": "manifest"
-	}
-]
+// const testData =  [
+// 	{
+// 		"id": 11495,
+// 		"title": "reportCut.xlsx",
+// 		"size": 9621,
+// 		"url": "http://89.108.119.30:22020/storage/1/2d89ec37-b827-46bc-b943-126fe5b0c6a6/reportCut.xlsx",
+// 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+// 		"metadata": null,
+// 		"docType": "contract"
+// 	}
+// ]
 
 
-	; (async () => {
-		await documentProcess(testData)
-	})()
+// export const testDocs = (async () => {
+// 		await documentProcess(testData)
+// 	})()
