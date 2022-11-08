@@ -1,8 +1,6 @@
 import { Obj } from "src/types/types";
 // import { contractData } from "./testData/contractData";
 
-
-
 const discountValues = {
 	socCoc: {
 		'1': 'SOC',
@@ -61,10 +59,10 @@ export class Discount {
 		return discountFields.map(m => {
 			let { recordValues } = m
 			return new DiscountParse({
-				socCoc: getnames(recordValues[6], 'socCoc'),
+				socCoc: recordValues[6],
 				port: recordValues[3].map(m => m.recordTitle),
-				direction: getnames(recordValues[11], 'direction'),
-				type: getnames(recordValues[5], 'type'),
+				direction: recordValues[11],
+				type: recordValues[5],
 				discount: recordValues[1]
 			})
 		})
@@ -92,7 +90,7 @@ export class Discount {
 
 
 
-// let t = new Discount(contractData)
+// let t = new Discount([])
 
 // let p = t.parsedFields
 
