@@ -3,31 +3,43 @@ import _ from 'lodash'
 
 import DocumentsParser from "./DocumentsParser"
 import { Booking, Container, matrix, ParseError } from '../types/types'
+import FindTableTitle from './FindTableTitle'
+import { Headers } from './things/types'
+import manifestGetVoyagePort from '../functions/manifestGetVoyagePort'
 
 //* For Test
 // import Path from 'path'
 // import fs from 'fs'
 
-// let path = Path.resolve('src', 'DocsParse', 'refactor', 'testData').toString()
+// let path = Path.resolve('src', 'DocsParse', 'testData').toString()
 // let file = Path.resolve(path, 'MANIFEST.xls').toString()
 //*
+
+export default interface ManifestParser {
+	table: Headers.Manifest[]
+	startIndex: number
+}
 
 export default class ManifestParser extends DocumentsParser {
 	constructor(params) {
 		super(params)
+		const renamedTable = new FindTableTitle(this.bigSheet, 'manifest').getTable()
+		this.table = renamedTable.table
+		this.startIndex = renamedTable.startIndex
 	}
 	get parsed() {
-		let voyage = this.fixVoyageNumber(this.bigSheet[1].C)
+		const {portCountry, loadingPort, vesselVoyage} = manifestGetVoyagePort( this.table )
+		let voyage = this.fixVoyageNumber(vesselVoyage)
 
 		let collect = {}
 		let tmp: string
-		this.bigSheet.forEach(fo => {
-			let chk = fo.B && fo.B.match(/INJIAN/)
+		this.table.forEach(fo => {
+			let chk = fo.BLNO && fo.BLNO.match(/(INT|INJIAN)/)
 			if (chk) {
-				tmp = fo.B
+				tmp = fo.BLNO
 				collect[tmp] = getBooking(fo, voyage)
-			} else if (tmp && fo.O) {
-				if (fo.B) collect[tmp].hs = fo.B
+			} else if (tmp && fo.CONTAINERNO) {
+				if (fo.BLNO) collect[tmp].hs = fo.BLNO
 				collect[tmp]['containers'].push(
 					getContainer(fo)
 				)
@@ -38,28 +50,30 @@ export default class ManifestParser extends DocumentsParser {
 	}
 }
 
-function getBooking(data: matrix, voyageNumber: string): Booking | ParseError {
+// let t = new ManifestParser(file).parsed
+
+function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | ParseError {
 	try {
-		data.L = data.L.toString().replace(/[^\d]/g, '')
+		data.MENSION = data.MENSION.toString().replace(/[^\d]/g, '')
 	} catch (e) {
 		console.error(e)
 	}
 	let result = () => {
 		return {
-			bookingId: data.B,
+			bookingId: data.BLNO,
 			voyageNumber: voyageNumber,
-			pkgs: data.C,
-			packType: data.D,
-			gWeight: data.E,
-			desc: data.F,
-			shipper: data.G,
-			consignee: data.H,
-			notifyParty: data.I,
-			mark: data.J,
-			owner: data.V ? data.V.replace(/[^a-zA-Z]/g, '') : data.V,
-			type: data.L + data.M,
-			hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
-			freight: data.U,
+			pkgs: data.PKGS,
+			packType: data.PACKAGETYPE,
+			gWeight: data.GWEIGHT,
+			desc: data.GOODS,
+			shipper: data.SHIPPER,
+			consignee: data.CONSIGNEE,
+			notifyParty: data.NOTIFYPARTY,
+			mark: data.MARK,
+			owner: data.containerowner ? data.containerowner.replace(/[^a-zA-Z]/g, '') : data.containerowner,
+			type: `${data.MENSION}${data.TYPE}`,
+			// hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
+			freight: data.FREIGHT,
 			isManifest: [1],
 			docType: 'manifest',
 			containers: [
@@ -78,25 +92,25 @@ function getBooking(data: matrix, voyageNumber: string): Booking | ParseError {
 	}
 }
 
-function getContainer(data: matrix): Container {
+function getContainer(data: Headers.Manifest): Container {
 	try {
-		data.K = data.K.toString().replace(/[^\d]/g, '')
+		data.CONTAINERNO = data.CONTAINERNO.toString().replace(/[^\d]/g, '')
 	} catch (e) {
-		console.log(typeof data.K)
+		console.log(typeof data.CONTAINERNO)
 	}
 	let resp
 	try {
 		resp = {
-			vol: data.N,
-			number: data.O,
-			seal: data.P,
-			packages: data.Q,
-			gWeight: data.R,
-			tWeight: data.S,
-			cbm: data.T,
-			freight: data.U,
-			owner: data.V ? data.V.replace(/\t+/g, '') : data.V,
-			type: data.L.toString().replace(/[^\d]/g, '') + data.M.replace(/[^a-zA-Z]/g, '')
+			vol: data.VOLUME,
+			number: data.CONTAINERNO,
+			seal: data.SEAL,
+			packages: data.PKGS_2,
+			gWeight: data.GWEIGHT_2,
+			tWeight: data.CONTAINERTAREWEIGHT,
+			cbm: data.CBM,
+			freight: data.FREIGHT,
+			owner: data.containerowner ? data.containerowner.replace(/\t+/g, '') : data.containerowner,
+			type: data.MENSION.toString().replace(/[^\d]/g, '') + data.TYPE.replace(/[^a-zA-Z]/g, '')
 		}
 	} catch (e) {
 		console.log(e)

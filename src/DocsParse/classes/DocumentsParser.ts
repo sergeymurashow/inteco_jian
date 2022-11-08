@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 import { Obj } from '../types/index'
 import utils from '../utils'
-import { sheets } from 'googleapis/build/src/apis/sheets'
 
 export default interface DocumentsParser {
 	constructor(
@@ -11,6 +10,7 @@ export default interface DocumentsParser {
 	)
 	fixVoyageNumber: DocumentsParser.FixVoyageNumber
 	bigSheet: DocumentsParser.matrix[]
+	testSheet?: Obj
 	filePath?: string
 
 }
@@ -30,6 +30,7 @@ export default class DocumentsParser {
 	constructor(filePath: string) {
 		this.fixVoyageNumber = utils.fixVoyageNumber
 		let sheets = xls.readFile(filePath)
+		this.testSheet = sheets
 		let sheet = {}
 		sheets.Workbook.Sheets.forEach( fo => {
 			if( !fo.Hidden ) sheet[fo.name] = sheets.Sheets[fo.name]

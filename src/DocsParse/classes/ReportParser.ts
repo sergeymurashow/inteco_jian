@@ -6,62 +6,75 @@ import objectSupport from 'dayjs/plugin/objectSupport'
 import utc from 'dayjs/plugin/utc'
 import DocumentsParser from "./DocumentsParser"
 import { Booking, matrix, ParseError, Container } from '../types/types'
+import FindTableTitle from './FindTableTitle'
 
 import utils from '../utils'
 
 import * as prettyData from './prettyData'
+import { Headers } from './things/types'
 
 //* For Test
 // import Path from 'path'
 // import fs from 'fs'
 // import { Console } from 'console'
 
-// let path = Path.resolve('src', 'DocsParse', 'refactor', 'testData').toString()
+// let path = Path.resolve('src', 'DocsParse', 'testData').toString()
 // let file = Path.resolve(path, 'REPORT_2.xlsx').toString()
 //*
-
+export default interface ReportParser {
+	table: Headers.Contract[]
+	startIndex: number
+}
 
 export default class ReportParser extends DocumentsParser {
 	constructor(params) {
 		super(params)
+		const renamedTable = new FindTableTitle(this.bigSheet, 'contract').getTable()
+		this.table = renamedTable.table
+		this.startIndex = renamedTable.startIndex
 	}
 	get parsed(): (Booking | ParseError)[] {
-		const collect = this.bigSheet
+		const collect = this.table
 			.filter(f => {
 				try {
-					return f.C && f.C.toString().match(/INT\d+/)
+					return f.BOOKINGNO && f.BOOKINGNO.toString().match(/(INT|INJIAN)\d+/) as Headers.Contract
 				} catch (e) {
 					console.log(f)
 				}
 			})
-			.map(m => getBooking(m))
-			.filter(f => f.bookingId)
+			.map(m => {
+				let parsedBooking = getBooking(m)
+				return parsedBooking
+			})
+			.filter(f => {
+				return f.bookingId
+			})
 		return _.sortBy(collect, 'bookingId')
 	}
 }
 
-// let t = new ReportParser( file ).parsed
+// let t = new ReportParser(file).parsed
 
-function getBooking(data: matrix): Booking | ParseError {
-	let result = () => {
+function getBooking(data: Headers.Contract): Booking | ParseError {
+	let result = (() => {
 		return {
-			bookingId: utils.clearString(data.C),
-			applicationDate: makeDate(utils.clearString(data.A)),
-			contract: prettyData.contract(data.B),
-			voyageNumber: utils.fixVoyageNumber(data.H),
-			containersCount: +utils.clearString(data.D),
-			type: utils.clearString(data.E),
-			gWeight: prettyData.gWeight(data.F.toString()),
-			shipper: utils.clearString(data.G),
-			port: utils.clearString(data.J),
-			freight: utils.clearString(data.L),
-			owner: utils.clearString(data.K),
+			bookingId: utils.clearString(data.BOOKINGNO),
+			applicationDate: makeDate(utils.clearString(data.Date)),
+			contract: prettyData.contract(data.SC),
+			voyageNumber: utils.fixVoyageNumber(data.VESSEL),
+			containersCount: +utils.clearString(data.NUMBEROFCONTAINER),
+			type: utils.clearString(data.TYPE),
+			gWeight: prettyData.gWeight(data.GROSSWEIGHT.toString()),
+			shipper: utils.clearString(data.SHIPPER),
+			port: utils.clearString(data.POL),
+			freight: utils.clearString(data.FREIGHTTERM),
+			owner: utils.clearString(data.SOCCOC),
 			docType: 'contract',
-			containers: containersParse( data )
+			containers: containersParse(data)
 		}
-	}
+	})()
 	try {
-		return result()
+		return result
 	} catch (e) {
 		console.group('Error')
 		console.error(e)
@@ -71,30 +84,30 @@ function getBooking(data: matrix): Booking | ParseError {
 	}
 }
 
-function containersParse(data: matrix) {
+function containersParse(data: Headers.Contract) {
 	const chkMultiTypesReg = /(20|40)/g
-	const chkMultiTypes = data.E.match(chkMultiTypesReg).length
-	if (chkMultiTypes === 1) return containersGenerate({
-		count: data.D,
-		type: data.E,
-		freight: data.L,
-		owner: data.K
+	const chkMultiTypes = data.TYPE.match(chkMultiTypesReg).length === 1 ? false : true
+	if (!chkMultiTypes) return containersGenerate({
+		count: data.NUMBEROFCONTAINER,
+		type: data.TYPE,
+		freight: data.FREIGHTTERM,
+		owner: data.SOCCOC
 	})
 	else {
 		const typesReg = /(\d)+[*Xx](20|40)\w+/g
-		const types = data.E.match(typesReg)
+		const types = data.TYPE.match(typesReg)
 		const mapped = types.map(m => {
 			let ansArr = []
 			const typeReg = /(?<count>\d+).*?(?<type>(20|40)\w+)/
 			let parsedType = m.match(typeReg)
 			if (parsedType.groups) {
-				Object.assign(parsedType.groups, { freight: data.L }, { owner: data.K })
+				Object.assign(parsedType.groups, { freight: data.FREIGHTTERM }, { owner: data.SOCCOC })
 				let req = parsedType.groups
 				ansArr = ansArr.concat(containersGenerate(req))
 			}
 			return ansArr
 		})
-		return _.flatten( mapped )
+		return _.flatten(mapped)
 	}
 }
 
@@ -130,7 +143,7 @@ function containersGenerate({ count, type, freight, owner }) {
 	return resp
 }
 
-function makeDate( chinaDate: string ): string {
+function makeDate(chinaDate: string): string {
 	let [day, month] = chinaDate.match(/\d+/g)
 	month = (+month - 1).toString()
 	dayjs.extend(toObject)
@@ -139,9 +152,9 @@ function makeDate( chinaDate: string ): string {
 	let thisDate = dayjs().toObject()
 	let bookingYear = thisDate.years
 	let calc = +month - +thisDate.months
-	if( calc > 10 ) {
+	if (calc > 10) {
 		bookingYear = +bookingYear - 1
 	}
-	let dateObject = {years: bookingYear, months: month, date: day, hour: 21, minute: 0, second: 0, millisecond: 0}
+	let dateObject = { years: bookingYear, months: month, date: day, hour: 21, minute: 0, second: 0, millisecond: 0 }
 	return dayjs().set(dateObject).utc().toISOString()
 }
