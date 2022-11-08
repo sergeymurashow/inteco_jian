@@ -43,7 +43,14 @@ export default class ReportParser extends DocumentsParser {
 				}
 			})
 			.map(m => {
-				let parsedBooking = getBooking(m)
+				let parsedBooking
+				try {
+					parsedBooking = getBooking(m)
+				} catch ( e ) {
+					console.error( e )
+					console.error( m )
+					parsedBooking = [{bookingId: null}]
+				}
 				return parsedBooking
 			})
 			.filter(f => {
@@ -80,7 +87,7 @@ function getBooking(data: Headers.Contract): Booking | ParseError {
 		console.error(e)
 		console.error(data)
 		console.groupEnd()
-		return { bookingId: null, errorMsg: JSON.stringify(data, null, 1) }
+		throw { bookingId: null, errorMsg: JSON.stringify(data, null, 1) }
 	}
 }
 

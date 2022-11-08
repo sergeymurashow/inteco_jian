@@ -23,7 +23,7 @@ async function documentProcess(data) {
 		result = result.concat( new ParseExcel(i.fileName, i.docType).get() )
 	}
 
-	utils.sendParsed(result)
+	// utils.sendParsed(result)
 }
 
 module.exports = documentProcess
@@ -31,15 +31,15 @@ module.exports = documentProcess
 
 
 
-// const testData =   [
+// const testData =  [
 // 	{
-// 		"id": 11503,
-// 		"title": "MANIFEST-01.xls",
-// 		"size": 279040,
-// 		"url": "http://89.108.119.30:22020/storage/1/1238aeb5-f839-412f-9ca9-dc7c1456c2cf/MANIFEST-01.xls",
-// 		"mimeType": "application/vnd.ms-excel",
+// 		"id": 11509,
+// 		"title": "XIN LONG YUN 55 INT07N55.xlsx",
+// 		"size": 24913,
+// 		"url": "http://89.108.119.30:22020/storage/1/6c76c35f-f3d6-4dc3-879a-06d3b5698957/XIN%20LONG%20YUN%2055%20INT07N55.xlsx",
+// 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 // 		"metadata": null,
-// 		"docType": "manifest"
+// 		"docType": "contract"
 // 	}
 // ]
 
