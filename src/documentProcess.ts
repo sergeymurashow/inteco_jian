@@ -23,7 +23,7 @@ async function documentProcess(data) {
 		result = result.concat( new ParseExcel(i.fileName, i.docType).get() )
 	}
 
-	// utils.sendParsed(result)
+	utils.sendParsed(result)
 }
 
 module.exports = documentProcess
