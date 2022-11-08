@@ -1,5 +1,5 @@
 import DocumentsParser from "../classes/DocumentsParser";
-import  transcribeContractNumber  from "./transcribeContractNumber";
+import transcribeContractNumber from "./transcribeContractNumber";
 import path from "path";
 import fs from 'fs'
 import dayjs from "dayjs";
