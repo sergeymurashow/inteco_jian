@@ -6,13 +6,15 @@ import { Booking, Container, matrix, ParseError } from '../types/types'
 import FindTableTitle from './FindTableTitle'
 import { Headers } from './things/types'
 import manifestGetVoyagePort from '../functions/manifestGetVoyagePort'
+import { manifestFields, containerFields } from './things/manifestItemsChecker'
+import answerChecker from '../functions/answerChecker'
 
 //* For Test
-// import Path from 'path'
-// import fs from 'fs'
+import Path from 'path'
+import fs from 'fs'
 
-// let path = Path.resolve('src', 'DocsParse', 'testData').toString()
-// let file = Path.resolve(path, 'MANIFEST.xls').toString()
+let path = Path.resolve('src', 'DocsParse', 'testData').toString()
+let file = Path.resolve(path, 'MANIFEST.xls').toString()
 //*
 
 export default interface ManifestParser {
@@ -28,7 +30,7 @@ export default class ManifestParser extends DocumentsParser {
 		this.startIndex = renamedTable.startIndex
 	}
 	get parsed() {
-		const {portCountry, loadingPort, vesselVoyage} = manifestGetVoyagePort( this.table )
+		const { portCountry, loadingPort, vesselVoyage } = manifestGetVoyagePort(this.table)
 		let voyage = this.fixVoyageNumber(vesselVoyage)
 
 		let collect = {}
@@ -50,7 +52,7 @@ export default class ManifestParser extends DocumentsParser {
 	}
 }
 
-// let t = new ManifestParser(file).parsed
+let t = new ManifestParser(file).parsed
 
 function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | ParseError {
 	try {
@@ -60,22 +62,22 @@ function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | Par
 	}
 	let result = () => {
 		return {
-			bookingId: data.BLNO,
-			voyageNumber: voyageNumber,
-			pkgs: data.PKGS,
-			packType: data.PACKAGETYPE,
-			gWeight: data.GWEIGHT,
-			desc: data.GOODS,
-			shipper: data.SHIPPER,
-			consignee: data.CONSIGNEE,
-			notifyParty: data.NOTIFYPARTY,
-			mark: data.MARK,
-			owner: data.containerowner ? data.containerowner.replace(/[^a-zA-Z]/g, '') : data.containerowner,
-			type: `${data.MENSION}${data.TYPE}`,
+			bookingId: manifestFields.bookingId(data.BLNO),
+			voyageNumber: manifestFields.voyageNumber(voyageNumber),
+			pkgs: manifestFields.pkgs(data.PKGS),
+			packType: manifestFields.packType(data.PACKAGETYPE),
+			gWeight: manifestFields.gWeight(data.GWEIGHT),
+			desc: manifestFields.desc(data.GOODS),
+			shipper: manifestFields.shipper(data.SHIPPER),
+			consignee: manifestFields.consignee(data.CONSIGNEE),
+			notifyParty: manifestFields.notifyParty(data.NOTIFYPARTY),
+			mark: manifestFields.mark(data.MARK),
+			owner: manifestFields.owner(data.containerowner),
+			type: manifestFields.type(data.MENSION, data.TYPE),
 			// hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
-			freight: data.FREIGHT,
-			isManifest: [1],
-			docType: 'manifest',
+			freight: manifestFields.freight(data.FREIGHT),
+			isManifest: manifestFields.isManifest([1]),
+			docType: manifestFields.docType('manifest'),
 			containers: [
 				getContainer(data)
 			]
@@ -98,24 +100,29 @@ function getContainer(data: Headers.Manifest): Container {
 	} catch (e) {
 		console.log(typeof data.CONTAINERNO)
 	}
-	let resp
-	try {
-		resp = {
-			vol: data.VOLUME,
-			number: data.CONTAINERNO,
-			seal: data.SEAL,
-			packages: data.PKGS_2,
-			gWeight: data.GWEIGHT_2,
-			tWeight: data.CONTAINERTAREWEIGHT,
-			cbm: data.CBM,
-			freight: data.FREIGHT,
-			owner: data.containerowner ? data.containerowner.replace(/\t+/g, '') : data.containerowner,
-			type: data.MENSION.toString().replace(/[^\d]/g, '') + data.TYPE.replace(/[^a-zA-Z]/g, '')
+
+	function resp(containers: Headers.Manifest): Container {
+		delete containers.MENSION
+		return {
+			vol: containerFields.vol(containers.VOLUME),
+			number: containerFields.number(containers.CONTAINERNO),
+			seal: containerFields.seal(containers.SEAL),
+			packages: containerFields.packages(containers.PKGS_2),
+			gWeight: containerFields.gWeight(containers.GWEIGHT_2),
+			tWeight: containerFields.tWeight(containers.CONTAINERTAREWEIGHT),
+			cbm: containerFields.cbm(containers.CBM),
+			freight: containerFields.freight(containers.FREIGHT),
+			owner: containerFields.owner(containers.containerowner),
+			type: containerFields.type(containers.MENSION, containers.TYPE),
 		}
-	} catch (e) {
-		console.log(e)
+
 	}
-	return resp
+	try {
+		answerChecker(resp(data))
+	} catch( e ) {
+		console.error(e)
+	}
+	return resp(data)
 }
 
 
