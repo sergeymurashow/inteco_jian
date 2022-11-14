@@ -94,7 +94,7 @@ function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | Par
 
 function getContainer(data: Headers.Manifest): Container {
 	try {
-		data.CONTAINERNO = data.CONTAINERNO.toString().replace(/[^\d]/g, '')
+		data.CONTAINERNO = data.CONTAINERNO.toString().replace(/[^\d\w]/g, '')
 	} catch (e) {
 		console.log(typeof data.CONTAINERNO)
 	}
