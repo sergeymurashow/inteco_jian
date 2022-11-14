@@ -10,6 +10,7 @@ const bp = new BP(connection.domen, connection.username, connection.password, co
 
 export default async (params) => {
     runProcess(params).catch((err) => { console.log(err) });
+    
     async function runProcess(params) {
         var name = `${params.processName} ${dayjs().format('DD.MM.YY HH:mm')}`
         console.log(name);
@@ -33,7 +34,6 @@ export default async (params) => {
                 console.log(e.stack)
                 processComplete(params.process.id, 3, e.stack)
             }
-
         }
         async function processComplete(processId, resultStatus, resultStr) {
             console.log('processComplete', dayjs().format('DD.MM.YY HH:mm'))

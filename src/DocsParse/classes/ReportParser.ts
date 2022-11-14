@@ -13,6 +13,9 @@ import utils from '../utils'
 import * as prettyData from './prettyData'
 import { Headers } from './things/types'
 
+import { reportFields } from './things/reportChecker'
+import answerChecker from '../functions/answerChecker'
+
 //* For Test
 // import Path from 'path'
 // import fs from 'fs'
@@ -46,10 +49,10 @@ export default class ReportParser extends DocumentsParser {
 				let parsedBooking
 				try {
 					parsedBooking = getBooking(m)
-				} catch ( e ) {
-					console.error( e )
-					console.error( m )
-					parsedBooking = [{bookingId: null}]
+				} catch (e) {
+					console.error(e)
+					console.error(m)
+					parsedBooking = [{ bookingId: null }]
 				}
 				return parsedBooking
 			})
@@ -62,33 +65,30 @@ export default class ReportParser extends DocumentsParser {
 
 // let t = new ReportParser(file).parsed
 
-function getBooking(data: Headers.Contract): Booking | ParseError {
-	let result = (() => {
+function getBooking(booking: Headers.Contract): Booking | ParseError {
+	let resp = (booking) => {
 		return {
-			bookingId: utils.clearString(data.BOOKINGNO),
-			applicationDate: makeDate(utils.clearString(data.Date)),
-			contract: prettyData.contract(data.SC),
-			voyageNumber: utils.fixVoyageNumber(data.VESSEL),
-			containersCount: +utils.clearString(data.NUMBEROFCONTAINER),
-			type: utils.clearString(data.TYPE),
-			gWeight: prettyData.gWeight(data.GROSSWEIGHT.toString()),
-			shipper: utils.clearString(data.SHIPPER),
-			port: utils.clearString(data.POL),
-			freight: utils.clearString(data.FREIGHTTERM),
-			owner: utils.clearString(data.SOCCOC),
+			bookingId: reportFields.bookingId(booking.BOOKINGNO),
+			applicationDate: reportFields.applicationDate(booking.Date),
+			contract: reportFields.contract(booking.SC),
+			voyageNumber: reportFields.voyageNumber(booking.VESSEL),
+			containersCount: reportFields.containersCount(booking.NUMBEROFCONTAINER),
+			type: reportFields.type(booking.TYPE),
+			gWeight: reportFields.type(booking.GROSSWEIGHT),
+			shipper: reportFields.shipper(booking.SHIPPER),
+			port: reportFields.port(booking.POL),
+			freight: reportFields.freight(booking.FREIGHTTERM),
+			owner: reportFields.owner(booking.SOCCOC),
 			docType: 'contract',
-			containers: containersParse(data)
+			containers: containersParse(booking)
 		}
-	})()
-	try {
-		return result
-	} catch (e) {
-		console.group('Error')
-		console.error(e)
-		console.error(data)
-		console.groupEnd()
-		throw { bookingId: null, errorMsg: JSON.stringify(data, null, 1) }
 	}
+	try {
+		answerChecker(resp(booking))
+	} catch (e) {
+		console.error(e)
+	}
+	return resp(booking)
 }
 
 function containersParse(data: Headers.Contract) {

@@ -10,11 +10,11 @@ import { manifestFields, containerFields } from './things/manifestItemsChecker'
 import answerChecker from '../functions/answerChecker'
 
 //* For Test
-import Path from 'path'
-import fs from 'fs'
+// import Path from 'path'
+// import fs from 'fs'
 
-let path = Path.resolve('src', 'DocsParse', 'testData').toString()
-let file = Path.resolve(path, 'MANIFEST.xls').toString()
+// let path = Path.resolve('src', 'DocsParse', 'testData').toString()
+// let file = Path.resolve(path, 'MANIFEST.xls').toString()
 //*
 
 export default interface ManifestParser {
@@ -52,7 +52,7 @@ export default class ManifestParser extends DocumentsParser {
 	}
 }
 
-let t = new ManifestParser(file).parsed
+// let t = new ManifestParser(file).parsed
 
 function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | ParseError {
 	try {
@@ -60,39 +60,37 @@ function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | Par
 	} catch (e) {
 		console.error(e)
 	}
-	let result = () => {
+	function resp(booking: Headers.Manifest): Booking {
 		return {
-			bookingId: manifestFields.bookingId(data.BLNO),
+			bookingId: manifestFields.bookingId(booking.BLNO),
 			voyageNumber: manifestFields.voyageNumber(voyageNumber),
-			pkgs: manifestFields.pkgs(data.PKGS),
-			packType: manifestFields.packType(data.PACKAGETYPE),
-			gWeight: manifestFields.gWeight(data.GWEIGHT),
-			desc: manifestFields.desc(data.GOODS),
-			shipper: manifestFields.shipper(data.SHIPPER),
-			consignee: manifestFields.consignee(data.CONSIGNEE),
-			notifyParty: manifestFields.notifyParty(data.NOTIFYPARTY),
-			mark: manifestFields.mark(data.MARK),
-			owner: manifestFields.owner(data.containerowner),
-			type: manifestFields.type(data.MENSION, data.TYPE),
-			// hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
-			freight: manifestFields.freight(data.FREIGHT),
+			pkgs: manifestFields.pkgs(booking.PKGS),
+			packType: manifestFields.packType(booking.PACKAGETYPE),
+			gWeight: manifestFields.gWeight(booking.GWEIGHT),
+			desc: manifestFields.desc(booking.GOODS),
+			shipper: manifestFields.shipper(booking.SHIPPER),
+			consignee: manifestFields.consignee(booking.CONSIGNEE),
+			notifyParty: manifestFields.notifyParty(booking.NOTIFYPARTY),
+			mark: manifestFields.mark(booking.MARK),
+			owner: manifestFields.owner(booking.containerowner),
+			type: manifestFields.type(booking.MENSION, booking.TYPE),
+			// hs: booking.K ? booking.K.replace(/\t+/g, '') : booking.K,
+			freight: manifestFields.freight(booking.FREIGHT),
 			isManifest: manifestFields.isManifest([1]),
 			docType: manifestFields.docType('manifest'),
 			containers: [
-				getContainer(data)
+				getContainer(booking)
 			]
 		}
 	}
 	try {
-		return result()
+		answerChecker(resp(data))
 	} catch (e) {
-		console.group('Error')
 		console.error(e)
-		console.error(data)
-		console.groupEnd()
-		return { bookingId: null, errorMsg: JSON.stringify(data, null, 1) }
 	}
+	return resp(data)
 }
+
 
 function getContainer(data: Headers.Manifest): Container {
 	try {
@@ -102,7 +100,7 @@ function getContainer(data: Headers.Manifest): Container {
 	}
 
 	function resp(containers: Headers.Manifest): Container {
-		delete containers.MENSION
+
 		return {
 			vol: containerFields.vol(containers.VOLUME),
 			number: containerFields.number(containers.CONTAINERNO),
@@ -119,7 +117,7 @@ function getContainer(data: Headers.Manifest): Container {
 	}
 	try {
 		answerChecker(resp(data))
-	} catch( e ) {
+	} catch (e) {
 		console.error(e)
 	}
 	return resp(data)

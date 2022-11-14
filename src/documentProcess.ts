@@ -4,7 +4,7 @@ import Path from 'path'
 
 import ParseExcel from './DocsParse'
 
-async function documentProcess(data) {
+export default async function documentProcess(data) {
 
 	let dir = Path.resolve(__dirname, 'tmp')
 	utils.createCatalogs(dir)
@@ -23,10 +23,10 @@ async function documentProcess(data) {
 		result = result.concat( new ParseExcel(i.fileName, i.docType).get() )
 	}
 
-	utils.sendParsed(result)
+	// utils.sendParsed(result)
 }
 
-module.exports = documentProcess
+// module.exports = documentProcess
 
 
 

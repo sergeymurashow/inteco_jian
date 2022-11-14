@@ -5,6 +5,6 @@ export default function clearString(data: string | number): string {
 		if (!data) return
 		return data.replace(/(^\s+|\s+$)/g, '')
 	} catch (err) {
-		console.error(err)
+		throw new Error(`Clean string "${data}" error`)
 	}
 }
