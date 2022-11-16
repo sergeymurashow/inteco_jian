@@ -1,11 +1,12 @@
 import dayjs from "dayjs";
+import connParams from '../config/default'
+
 const BP = require('bp-api');
 
 
 const _ = require('lodash');
-const connection = require('../../config/default.json').connection;
 
-
+const { connection } = connParams
 const bp = new BP(connection.domen, connection.username, connection.password, connection.protocol, 30000);
 
 export default async (params) => {
