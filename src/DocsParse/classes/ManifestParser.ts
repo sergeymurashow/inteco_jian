@@ -110,7 +110,7 @@ function getContainer(data: Headers.Manifest): Container {
 			cbm: data.CBM,
 			freight: data.FREIGHT,
 			owner: data.containerowner ? data.containerowner.toString().replace(/\t+/g, '') : data.containerowner,
-			type: data.MENSION.toString().replace(/[^\d]/g, '') + data.TYPE.replace(/[^a-zA-Z]/g, '')
+			type: data.MENSION.toString().replace(/[^\d]/g, '') + data.TYPE.toString().replace(/[^a-zA-Z]/g, '')
 		}
 	} catch (e) {
 		console.log(e)
