@@ -150,18 +150,26 @@ function containersGenerate({ count, type, freight, owner }) {
 	return resp
 }
 
+// function makeDate(chinaDate: string): string {
+// 	let [day, month] = chinaDate.match(/\d+/g)
+// 	month = (+month - 1).toString()
+// 	dayjs.extend(toObject)
+// 	dayjs.extend(objectSupport)
+// 	dayjs.extend(utc)
+// 	let thisDate = dayjs().toObject()
+// 	let bookingYear = thisDate.years
+// 	let calc = +month - +thisDate.months
+// 	if (calc > 10) {
+// 		bookingYear = +bookingYear - 1
+// 	}
+// 	let dateObject = { years: bookingYear, months: month, date: day, hour: 21, minute: 0, second: 0, millisecond: 0 }
+// 	return dayjs().set(dateObject).utc().toISOString()
+// }
+
 function makeDate(chinaDate: string): string {
-	let [day, month] = chinaDate.match(/\d+/g)
-	month = (+month - 1).toString()
-	dayjs.extend(toObject)
-	dayjs.extend(objectSupport)
 	dayjs.extend(utc)
-	let thisDate = dayjs().toObject()
-	let bookingYear = thisDate.years
-	let calc = +month - +thisDate.months
-	if (calc > 10) {
-		bookingYear = +bookingYear - 1
-	}
-	let dateObject = { years: bookingYear, months: month, date: day, hour: 21, minute: 0, second: 0, millisecond: 0 }
-	return dayjs().set(dateObject).utc().toISOString()
+	return dayjs(chinaDate).set('hours', 11).toISOString()
 }
+
+
+
