@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import Counter from './Counter'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import toObject from 'dayjs/plugin/toObject'
 import objectSupport from 'dayjs/plugin/objectSupport'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import utc from 'dayjs/plugin/utc'
 import DocumentsParser from "./DocumentsParser"
 import { Booking, matrix, ParseError, Container } from '../types/types'
@@ -168,8 +169,7 @@ function containersGenerate({ count, type, freight, owner }) {
 
 function makeDate(chinaDate: string): string {
 	dayjs.extend(utc)
-	return dayjs(chinaDate).set('hours', 11).toISOString()
+	dayjs.extend(customParseFormat)
+	return dayjs(chinaDate, 'DD.MM.YYYY').set('hours', 11).toISOString()
 }
-
-
 
