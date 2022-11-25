@@ -25,6 +25,7 @@ export declare namespace Headers {
 		CONSIGNEE?,
 		NOTIFYPARTY?,
 		MARK?,
+		REMARK?,
 		MENSION?,
 		TYPE?,
 		VOLUME?,

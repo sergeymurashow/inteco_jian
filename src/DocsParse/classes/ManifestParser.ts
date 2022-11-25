@@ -70,6 +70,7 @@ function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | Par
 			consignee: data.CONSIGNEE,
 			notifyParty: data.NOTIFYPARTY,
 			mark: data.MARK,
+			remark: data.REMARK,
 			owner: data.CONTAINEROWNER ? data.CONTAINEROWNER.toString().replace(/[^a-zA-Z]/g, '') : data.CONTAINEROWNER,
 			type: `${data.MENSION}${data.TYPE}`,
 			// hs: data.K ? data.K.replace(/\t+/g, '') : data.K,

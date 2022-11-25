@@ -59,6 +59,7 @@ export default class FindTableTitle {
 
 			for (let i in this.dataCollector.tableHeader) {
 				let oldCellName = this.dataCollector.tableHeader[i]
+
 				let foundSample = sample.find(fi => {
 					return fi.alias == oldCellName
 				})
@@ -88,7 +89,9 @@ export default class FindTableTitle {
 			const forEachCollector = {}
 			for (let i in fo) {
 				if (fo[i]) {
-					forEachCollector[this.dataCollector.headerTemplate[i]] = fo[i]
+					let newName = this.dataCollector.headerTemplate[i]
+					let keyName = forEachCollector[newName] ? `${newName}_2` : newName
+					forEachCollector[keyName] = fo[i]
 				}
 			}
 			collector.push(forEachCollector)

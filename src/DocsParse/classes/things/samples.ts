@@ -34,6 +34,7 @@ const samples = {
 		'CONSIGNEE',
 		'NOTIFY PARTY',
 		'MARK',
+		'REMARK',
 		'MENSION',
 		'TYPE',
 		'VOLUME',
