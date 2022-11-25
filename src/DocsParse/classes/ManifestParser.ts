@@ -32,16 +32,17 @@ export default class ManifestParser extends DocumentsParser {
 		let voyage = this.fixVoyageNumber(vesselVoyage)
 
 		let collect = {}
-		let tmp: string
+		let tmp: Headers.Manifest
 		this.table.forEach(fo => {
 			let chk = fo.BLNO && fo.BLNO.match(/(INT|INJIAN)/)
 			if (chk) {
-				tmp = fo.BLNO
-				collect[tmp] = getBooking(fo, voyage)
+				tmp = fo
+				collect[tmp.BLNO] = getBooking(fo, voyage)
 			} else if (tmp && fo.CONTAINERNO) {
-				if (fo.BLNO) collect[tmp].hs = fo.BLNO
-				collect[tmp]['containers'].push(
-					getContainer(fo)
+				// if (fo.BLNO) collect[tmp.BLNO].hs = fo.BLNO
+
+				collect[tmp.BLNO]['containers'].push(
+					getContainer(Object.assign({}, tmp, fo))
 				)
 			}
 		});
@@ -59,6 +60,9 @@ function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | Par
 		console.error(e)
 	}
 	let result = () => {
+		if( data.BLNO === 'INT00008652') {
+			let t
+		}
 		return {
 			bookingId: data.BLNO,
 			voyageNumber: voyageNumber,
