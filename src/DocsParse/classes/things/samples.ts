@@ -11,7 +11,7 @@ export type Sample = {
 
 const samples = {
 	'contract': [
-		'Date',
+		'DATE',
 		'S/C',
 		'BOOKING NO',
 		'NUMBER OF CONTAINER',
@@ -25,7 +25,7 @@ const samples = {
 		'FREIGHT TERM'
 	],
 	'manifest': [
-		'BL NO.',
+		'BL NO',
 		'PKGS',
 		'PACKAGE TYPE',
 		'G/WEIGHT',
@@ -37,14 +37,14 @@ const samples = {
 		'MENSION',
 		'TYPE',
 		'VOLUME',
-		'CONTAINER NO.',
+		'CONTAINER NO',
 		'SEAL',
 		'PKGS',
 		'G/WEIGHT',
 		'CONTAINER TARE WEIGHT',
 		'CBM',
 		'FREIGHT',
-		'container owner'
+		'CONTAINER OWNER'
 	],
 	getWithAliases( docType : DocType): Sample[] {
 		const tmp: Obj[] = []

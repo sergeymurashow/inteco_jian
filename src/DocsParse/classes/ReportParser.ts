@@ -40,7 +40,8 @@ export default class ReportParser extends DocumentsParser {
 				try {
 					return f.BOOKINGNO && f.BOOKINGNO.toString().match(/(INT|INJIAN)\d+/) as Headers.Contract
 				} catch (e) {
-					console.log(f)
+					console.error( e )
+					console.log( f )
 				}
 			})
 			.map(m => {

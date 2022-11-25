@@ -20,7 +20,7 @@ export default interface FindTableTitle {
 }
 
 function clearCell(cell: string) {
-	return cell.replace(/[^\w\d]/g, '')
+	return cell.replace(/[^a-zA-Z\d]/g, '')
 }
 
 export default class FindTableTitle {
@@ -33,16 +33,19 @@ export default class FindTableTitle {
 
 	private findString() {
 		const documentSample = samples.getWithAliases(this.docType)
-		const reperCell = documentSample[0]
+		const raperCell = documentSample[0]
 		const tableHeader = this.tableArray.find((str, index, array) => {
 			for (let i in str) {
-				let cell = clearCell(str[i].toString())
-				if (cell === reperCell.alias) {
+				let cell = clearCell(str[i].toString()).toUpperCase()
+				if (cell === raperCell.alias) {
 					this.dataCollector.startIndex = index
 					return str
 				}
 			}
 		})
+		for( let i in tableHeader ) {
+			tableHeader[i] = clearCell(tableHeader[i].toString()).toUpperCase()
+		}
 		Object.assign(this.dataCollector, { tableHeader })
 		return this
 	}
@@ -57,7 +60,7 @@ export default class FindTableTitle {
 			for (let i in this.dataCollector.tableHeader) {
 				let oldCellName = this.dataCollector.tableHeader[i]
 				let foundSample = sample.find(fi => {
-					return fi.cellName == oldCellName
+					return fi.alias == oldCellName
 				})
 
 				if (foundSample) {
