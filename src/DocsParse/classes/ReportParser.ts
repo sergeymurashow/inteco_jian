@@ -68,7 +68,7 @@ function getBooking(data: Headers.Contract): Booking | ParseError {
 	let result = (() => {
 		return {
 			bookingId: utils.clearString(data.BOOKINGNO),
-			applicationDate: makeDate(utils.clearString(data.Date)),
+			applicationDate: makeDate(utils.clearString(data.DATE)),
 			contract: prettyData.contract(data.SC),
 			voyageNumber: utils.fixVoyageNumber(data.VESSEL),
 			containersCount: +utils.clearString(data.NUMBEROFCONTAINER),
@@ -169,8 +169,10 @@ function containersGenerate({ count, type, freight, owner }) {
 // }
 
 function makeDate(chinaDate: string): string {
-	dayjs.extend(utc)
 	dayjs.extend(customParseFormat)
-	return dayjs(chinaDate, 'DD.MM.YYYY').set('hours', 11).toISOString()
+	dayjs.extend(utc)
+	let fixedDate = dayjs(chinaDate, 'M.D.YY').format('YYYY-MM-DDT00:00:00')
+	return fixedDate
 }
+
 

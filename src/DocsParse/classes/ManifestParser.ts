@@ -70,7 +70,7 @@ function getBooking(data: Headers.Manifest, voyageNumber: string): Booking | Par
 			consignee: data.CONSIGNEE,
 			notifyParty: data.NOTIFYPARTY,
 			mark: data.MARK,
-			owner: data.containerowner ? data.containerowner.toString().replace(/[^a-zA-Z]/g, '') : data.containerowner,
+			owner: data.CONTAINEROWNER ? data.CONTAINEROWNER.toString().replace(/[^a-zA-Z]/g, '') : data.CONTAINEROWNER,
 			type: `${data.MENSION}${data.TYPE}`,
 			// hs: data.K ? data.K.replace(/\t+/g, '') : data.K,
 			freight: data.FREIGHT,
@@ -109,7 +109,7 @@ function getContainer(data: Headers.Manifest): Container {
 			tWeight: data.CONTAINERTAREWEIGHT,
 			cbm: data.CBM,
 			freight: data.FREIGHT,
-			owner: data.containerowner ? data.containerowner.toString().replace(/\t+/g, '') : data.containerowner,
+			owner: data.CONTAINEROWNER ? data.CONTAINEROWNER.toString().replace(/\t+/g, '') : data.CONTAINEROWNER,
 			type: data.MENSION.toString().replace(/[^\d]/g, '') + data.TYPE.toString().replace(/[^a-zA-Z]/g, '')
 		}
 	} catch (e) {

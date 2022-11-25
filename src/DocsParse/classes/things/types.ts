@@ -1,7 +1,7 @@
 
 export declare namespace Headers {
 	export type Contract = {
-		Date?,
+		DATE?,
 		SC?,
 		BOOKINGNO?,
 		NUMBEROFCONTAINER?,
@@ -35,7 +35,7 @@ export declare namespace Headers {
 		CONTAINERTAREWEIGHT?,
 		CBM?,
 		FREIGHT?,
-		containerowner?
+		CONTAINEROWNER?
 	}
 
 }

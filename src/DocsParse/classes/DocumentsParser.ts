@@ -53,7 +53,7 @@ export default class DocumentsParser {
 				const keys = this.getAddr(Object.keys(data)[0])
 				const value = Object.values(data)[0]
 				if (!this.data[keys.row]) this.data[keys.row] = {}
-				this.data[keys.row][keys.col] = value.v
+				this.data[keys.row][keys.col] = value.w
 			},
 
 			get(): Array<Obj> {
