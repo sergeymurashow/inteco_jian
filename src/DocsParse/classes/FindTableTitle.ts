@@ -83,7 +83,14 @@ export default class FindTableTitle {
 			return data
 		}
 		
-
+		const headersPreset = (() => {
+			let tmp = {}
+			let headers = this.dataCollector.headerTemplate
+			for( let i in headers ) {
+				Object.assign(tmp, {[headers[i]]: null})
+			}
+			return tmp
+		})()
 		const collector = []
 		this.tableArray.forEach(fo => {
 			const forEachCollector = {}
@@ -93,8 +100,9 @@ export default class FindTableTitle {
 					let keyName = forEachCollector[newName] ? `${newName}_2` : newName
 					forEachCollector[keyName] = fo[i]
 				}
+
 			}
-			collector.push(forEachCollector)
+			collector.push(Object.assign({}, headersPreset, forEachCollector))
 		})
 
 		this.dataCollector.renamedTable = collector
