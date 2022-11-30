@@ -20,7 +20,7 @@ import { Headers } from './things/types'
 // import { Console } from 'console'
 
 // let path = Path.resolve('src', 'DocsParse', 'testData').toString()
-// let file = Path.resolve(path, 'REPORT_2.xlsx').toString()
+// let file = Path.resolve(path, '2699', 'XIAN LIAN CHANG I26Q99.xlsx').toString()
 //*
 export default interface ReportParser {
 	table: Headers.Contract[]
@@ -64,6 +64,8 @@ export default class ReportParser extends DocumentsParser {
 
 // let t = new ReportParser(file).parsed
 
+
+
 function getBooking(data: Headers.Contract): Booking | ParseError {
 	let result = (() => {
 		return {
@@ -73,7 +75,7 @@ function getBooking(data: Headers.Contract): Booking | ParseError {
 			voyageNumber: utils.fixVoyageNumber(data.VESSEL),
 			containersCount: +utils.clearString(data.NUMBEROFCONTAINER),
 			type: utils.clearString(data.TYPE),
-			gWeight: prettyData.gWeight(data.GROSSWEIGHT.toString()),
+			gWeight: prettyData.gWeight(data.GROSSWEIGHT),
 			shipper: utils.clearString(data.SHIPPER),
 			port: utils.clearString(data.POL),
 			freight: utils.clearString(data.FREIGHTTERM),
@@ -89,7 +91,7 @@ function getBooking(data: Headers.Contract): Booking | ParseError {
 		console.error(e)
 		console.error(data)
 		console.groupEnd()
-		throw { bookingId: null, errorMsg: JSON.stringify(data, null, 1) }
+		throw { bookingId: data.BOOKINGNO, errorMsg: JSON.stringify(data, null, 1) }
 	}
 }
 
@@ -171,7 +173,11 @@ function containersGenerate({ count, type, freight, owner }) {
 function makeDate(chinaDate: string): string {
 	dayjs.extend(customParseFormat)
 	dayjs.extend(utc)
-	let fixedDate = dayjs(chinaDate, 'M.D.YY').format('YYYY-MM-DDT00:00:00')
+	const dateFormat = ( cd ) => {
+		if( /(\d{1,2}\.*){3}$/.test(cd) ) return 'M.D.YY'
+		if( /\d{4}\/\d{1,2}\/\d{1,2}/.test(cd) ) return 'YYYY/MM/DD'
+	}
+	let fixedDate = dayjs((chinaDate), dateFormat(chinaDate)).format('YYYY-MM-DDT00:00:00')
 	return fixedDate
 }
 
