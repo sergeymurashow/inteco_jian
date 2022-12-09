@@ -2,7 +2,7 @@ import { Any } from "src/DocsParse/classes/IfsumParser";
 import { VoyageLink } from "./types";
 
 const BP = require('bp-api');
-const connection = require('../../config/default.json').connection;
+const connection = require('../config/default.json').connection;
 
 const bp = new BP(connection.domen, connection.username, connection.password, connection.protocol, 30000);
 
