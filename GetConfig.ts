@@ -12,6 +12,7 @@ interface GetConfig{
 	receiver: string
 	callbackParsed: string
 	callbackTariff: string
+	callbackNonValid: string
 }
 
 class GetConfig{
@@ -23,6 +24,7 @@ class GetConfig{
 		this.receiver = process.env.RECEIVER
 		this.callbackParsed = process.env.CALLBACK_PARSED
 		this.callbackTariff = process.env.CALLBACK_TARIFF
+		this.callbackNonValid = process.env.CALLBACK_NON_VALID
 	}
 }
 
