@@ -1,10 +1,5 @@
 import { Filters, VoyageLink } from "./types"
-
-const BP = require('bp-api');
-const connection = require('../../config/default.json').connection;
-
-const bp = new BP(connection.domen, connection.username, connection.password, connection.protocol, 30000);
-
+import bp from '../bpConnect'
 
 interface ContainersOnVoyage {
 	voyageLink: VoyageLink[]
@@ -16,6 +11,7 @@ class ContainersOnVoyage{
 	}
 	
 	async getContainers() {
+		console.log( 'Get containers')
 		const filters: Filters = [
 			{
 				fieldId: '31',
@@ -26,6 +22,7 @@ class ContainersOnVoyage{
 				value: ['1']
 			}
 		]
+		console.log( 'Get by filters:', filters)
 		const limit = '1000'
 		const result = await bp.getRecords( '108', {filters, limit})
 		// console.log( JSON.stringify( result, null, 1 ))

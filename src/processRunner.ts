@@ -1,12 +1,7 @@
 import dayjs from "dayjs";
-const BP = require('bp-api');
+import _ from 'lodash'
 
-
-const _ = require('lodash');
-const connection = require('../../config/default.json').connection;
-
-
-const bp = new BP(connection.domen, connection.username, connection.password, connection.protocol, 30000);
+import bp from './bpConnect'
 
 export default async (params) => {
     runProcess(params).catch((err) => { console.log(err) });

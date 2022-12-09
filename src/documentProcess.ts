@@ -28,7 +28,6 @@ async function documentProcess(data) {
 				let record = i.record
 				let ifsumParsed = new IfsumParser(i.fileName).parsing()
 				let nonValid = await CheckoutData(ifsumParsed)
-				// result = result.concat(nonValid)
 				utils.sendNonValid({ nonValid, record })
 				break;
 
@@ -46,25 +45,25 @@ module.exports = documentProcess
 
 
 
-const testData = [
-	{
-		"id": 11979,
-		"title": "XIN LIAN CHANG_ifsum.edi",
-		"size": 152893,
-		"url": "http://89.108.119.30:22020/storage/1/8bde19f2-8a4c-43a5-960c-5d53a13a69ea/XIN%20LIAN%20CHANG_ifsum.edi",
-		"mimeType": "false",
-		"metadata": null,
-		"docType": "ifsum",
-		"record": [
-			{
-				"catalogId": "135",
-				"recordId": "3"
-			}
-		]
-	}
-]
+// const testData = [
+// 	{
+// 		"id": 11979,
+// 		"title": "XIN LIAN CHANG_ifsum.edi",
+// 		"size": 152893,
+// 		"url": "http://89.108.119.30:22020/storage/1/8bde19f2-8a4c-43a5-960c-5d53a13a69ea/XIN%20LIAN%20CHANG_ifsum.edi",
+// 		"mimeType": "false",
+// 		"metadata": null,
+// 		"docType": "ifsum",
+// 		"record": [
+// 			{
+// 				"catalogId": "135",
+// 				"recordId": "3"
+// 			}
+// 		]
+// 	}
+// ]
 
 
-export const testDocs = (async () => {
-	await documentProcess(testData)
-})()
+// export const testDocs = (async () => {
+// 	await documentProcess(testData)
+// })()
