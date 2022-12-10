@@ -11,13 +11,14 @@ router.route('/ifsum')
 		res.send({ response: 'It`s works!' })
 	})
 	.post(jsonParser, (req, res) => {
+		console.log('Run: ifsumProcess')
 		processRunner({
 			processName: 'ifsumProcess',
 			body: req.body
 		}).then( ans => {
-			res.send({ status: 200, body: ans })
+			res.status(200).send(ans)
 		}).catch( err => {
-			res.send({status: 500, body: err})
+			res.status(500).send(err)
 		})
 	})
 

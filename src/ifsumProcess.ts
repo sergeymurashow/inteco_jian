@@ -5,7 +5,7 @@ import Path from 'path'
 import IfsumParser from './DocsParse/classes/IfsumParser'
 import CheckoutData from './CheckoutData'
 
-async function ifsumValidate(data) {
+async function ifsumProcess(data) {
 
 	let dir = Path.resolve(__dirname, 'tmp')
 	utils.createCatalogs(dir)
@@ -31,4 +31,4 @@ async function ifsumValidate(data) {
 	return result
 }
 
-module.exports = ifsumValidate
+module.exports = ifsumProcess
