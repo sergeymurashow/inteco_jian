@@ -4,7 +4,10 @@ import _ from 'lodash'
 import bp from './bpConnect'
 
 export default async (params) => {
-    return await runProcess(params).catch((err) => { console.log(err) });
+    if (params.sync) {
+        return await runProcess(params).catch((err) => { console.log(err) });
+    }
+    runProcess(params).catch((err) => { console.log(err) });
     async function runProcess(params) {
         var name = `${params.processName} ${dayjs().format('DD.MM.YY HH:mm')}`
         console.log(name);

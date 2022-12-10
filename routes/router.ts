@@ -14,7 +14,8 @@ router.route('/ifsum')
 		console.log('Run: ifsumProcess')
 		processRunner({
 			processName: 'ifsumProcess',
-			body: req.body
+			body: req.body,
+			sync: true
 		}).then( ans => {
 			res.status(200).send(ans)
 		}).catch( err => {
