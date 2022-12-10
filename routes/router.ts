@@ -14,8 +14,11 @@ router.route('/parse')
 		processRunner({
 			processName: 'documentProcess',
 			body: req.body
+		}).then( ans => {
+			res.send({ status: 200, body: ans })
+		}).catch( err => {
+			res.send({status: 500, body: err})
 		})
-		res.send({ status: 200 })
 	})
 
 	router.route('/ifsum')
