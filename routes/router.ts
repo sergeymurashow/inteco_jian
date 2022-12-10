@@ -6,13 +6,13 @@ import path from 'path'
 export const router = express.Router()
 const jsonParser = bodyParser.json()
 
-router.route('/parse')
+router.route('/ifsum')
 	.get((req, res) => {
 		res.send({ response: 'It`s works!' })
 	})
 	.post(jsonParser, (req, res) => {
 		processRunner({
-			processName: 'documentProcess',
+			processName: 'ifsumProcess',
 			body: req.body
 		}).then( ans => {
 			res.send({ status: 200, body: ans })
@@ -21,7 +21,7 @@ router.route('/parse')
 		})
 	})
 
-	router.route('/ifsum')
+	router.route('/parse')
 	.get((req, res) => {
 		res.send({ response: 'It`s works!' })
 	})
