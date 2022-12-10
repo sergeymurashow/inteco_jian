@@ -28,4 +28,8 @@ class GetConfig{
 	}
 }
 
-export default new GetConfig(configPath)
+const bpiumConfig = new GetConfig(configPath)
+
+console.log( 'Bpium config is:', bpiumConfig)
+
+export default bpiumConfig

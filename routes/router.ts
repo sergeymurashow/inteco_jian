@@ -18,6 +18,18 @@ router.route('/parse')
 		res.send({ status: 200 })
 	})
 
+	router.route('/ifsum')
+	.get((req, res) => {
+		res.send({ response: 'It`s works!' })
+	})
+	.post(jsonParser, (req, res) => {
+		processRunner({
+			processName: 'documentProcess',
+			body: req.body
+		})
+		res.send({ status: 200 })
+	})
+
 router.route('/containerTariff')
 	.post( jsonParser, (req, res) => {
 		const chkArr = [ 'voyageData', 'tariffInput' ]
