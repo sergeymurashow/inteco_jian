@@ -47,19 +47,13 @@ module.exports = documentProcess
 
 // const testData = [
 // 	{
-// 		"id": 11979,
-// 		"title": "XIN LIAN CHANG_ifsum.edi",
-// 		"size": 152893,
-// 		"url": "http://89.108.119.30:22020/storage/1/8bde19f2-8a4c-43a5-960c-5d53a13a69ea/XIN%20LIAN%20CHANG_ifsum.edi",
-// 		"mimeType": "false",
-// 		"metadata": null,
-// 		"docType": "ifsum",
-// 		"record": [
-// 			{
-// 				"catalogId": "135",
-// 				"recordId": "3"
-// 			}
-// 		]
+// 		"id": 12272,
+// 		"title": "fuckingTestReport.xlsx",
+// 		"mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+// 		"size": 9837,
+// 		"url": "http://89.108.119.30:22020/storage/1/21f5785b-6790-40fb-896e-dc4f787f449a/fuckingTestReport.xlsx",
+// 		"loading": false,
+// 		"docType": "contract"
 // 	}
 // ]
 

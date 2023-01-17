@@ -176,6 +176,7 @@ function makeDate(chinaDate: string): string {
 	const dateFormat = ( cd ) => {
 		if( /(\d{1,2}\.*){3}$/.test(cd) ) return 'M.D.YY'
 		if( /\d{4}\/\d{1,2}\/\d{1,2}/.test(cd) ) return 'YYYY/MM/DD'
+		if( /\d{2}\/\d{1,2}\/\d{1,2}/.test(cd) ) return 'DD/MM/YY'
 	}
 	let fixedDate = dayjs((chinaDate), dateFormat(chinaDate)).format('YYYY-MM-DDT00:00:00')
 	return fixedDate
